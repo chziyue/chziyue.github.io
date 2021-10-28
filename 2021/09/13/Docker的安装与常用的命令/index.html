@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付（shipping）应用、运行应用。 Docker允许用户将基础设施（Infrastructure）中的应用单独分割出来，形成更小的颗粒（容器），从而提高交付软件的速度。">
+  <meta name="author" content="Midnight">
+  <meta name="keywords" content="">
+  
+  <title>Docker的安装与常用的命令 - MIDNIGHT&#39;S BLOG</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chziyue.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":50,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MIDNIGHT'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Docker的安装与常用的命令">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-13 22:26" pubdate>
+        2021年9月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      60
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker的安装与常用的命令</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年9月19日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付（shipping）应用、运行应用。 Docker允许用户将基础设施（Infrastructure）中的应用单独分割出来，形成更小的颗粒（容器），从而提高交付软件的速度。</p>
+<h3 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h3><blockquote>
+<p>准备环境</p>
+</blockquote>
+<p>1、CentOS 7<br>2、使用 Xshell 连接远程服务器操作  </p>
+<blockquote>
+<p>环境查看</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">[root@bogon ~]<span class="hljs-comment"># uname -r</span><br><span class="hljs-number">3.10</span>.<span class="hljs-number">0</span>-<span class="hljs-number">1160</span>.el7.x86_64 <span class="hljs-regexp">//</span>系统内核是 <span class="hljs-number">3.10</span> 以上<br></code></pre></td></tr></table></figure>
+<p>系统版本</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[root@bogon /]</span><span class="hljs-comment"># cat /etc/os-release </span><br><span class="hljs-attr">NAME</span>=<span class="hljs-string">&quot;CentOS Linux&quot;</span><br><span class="hljs-attr">VERSION</span>=<span class="hljs-string">&quot;7 (Core)&quot;</span><br><span class="hljs-attr">ID</span>=<span class="hljs-string">&quot;centos&quot;</span><br><span class="hljs-attr">ID_LIKE</span>=<span class="hljs-string">&quot;rhel fedora&quot;</span><br><span class="hljs-attr">VERSION_ID</span>=<span class="hljs-string">&quot;7&quot;</span><br><span class="hljs-attr">PRETTY_NAME</span>=<span class="hljs-string">&quot;CentOS Linux 7 (Core)&quot;</span><br><span class="hljs-attr">ANSI_COLOR</span>=<span class="hljs-string">&quot;0;31&quot;</span><br><span class="hljs-attr">CPE_NAME</span>=<span class="hljs-string">&quot;cpe:/o:centos:centos:7&quot;</span><br><span class="hljs-attr">HOME_URL</span>=<span class="hljs-string">&quot;https://www.centos.org/&quot;</span><br><span class="hljs-attr">BUG_REPORT_URL</span>=<span class="hljs-string">&quot;https://bugs.centos.org/&quot;</span><br><br><span class="hljs-attr">CENTOS_MANTISBT_PROJECT</span>=<span class="hljs-string">&quot;CentOS-7&quot;</span><br><span class="hljs-attr">CENTOS_MANTISBT_PROJECT_VERSION</span>=<span class="hljs-string">&quot;7&quot;</span><br><span class="hljs-attr">REDHAT_SUPPORT_PRODUCT</span>=<span class="hljs-string">&quot;centos&quot;</span><br><span class="hljs-attr">REDHAT_SUPPORT_PRODUCT_VERSION</span>=<span class="hljs-string">&quot;7&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>安装</p>
+</blockquote>
+<p>根据官网提供的帮助文档操作：<br>1、卸载旧的版本</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs livescript">yum remove docker <span class="hljs-string">\</span><br>                docker-client <span class="hljs-string">\</span><br>                docker-client-latest <span class="hljs-string">\</span><br>                docker-common <span class="hljs-string">\</span><br>                docker-latest <span class="hljs-string">\</span><br>                docker-latest-logrotate <span class="hljs-string">\</span><br>                docker-logrotate <span class="hljs-string">\</span><br>                docker-engine<br></code></pre></td></tr></table></figure>
+
+<p>2、需要的安装包</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> -y yum-utils<br></code></pre></td></tr></table></figure>
+<p>3、设置镜像的仓库</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">yum-config-manager \<br>    --add-repo \<br>    https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/</span>centos<span class="hljs-regexp">/docker-ce.repo /</span><span class="hljs-regexp">/官网提供的是国外的仓库速度比较慢</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">yum-config-manager \<br>    --add-repo \<br>    http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/docker-ce/</span>linux<span class="hljs-regexp">/centos/</span>docker-ce.repo <span class="hljs-regexp">//</span>我这里使用阿里云的，速度会快很多<br></code></pre></td></tr></table></figure>
+<p>更新 yum 软件包索引</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">yum makecache fast</span><br></code></pre></td></tr></table></figure>
+<p>4、 安装dokcer相关的  docker-ce 社区版  docker-ee 企业版</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">yum install docker-<span class="hljs-keyword">ce</span> docker-<span class="hljs-keyword">ce</span>-cli containerd.io<br></code></pre></td></tr></table></figure>
+<p>5、使用 <code>docker version</code> 查看 docker 版本信息</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs yaml">[<span class="hljs-string">root@bogon</span> <span class="hljs-string">/</span>]<span class="hljs-comment"># docker version</span><br><span class="hljs-attr">Client:</span> <span class="hljs-string">Docker</span> <span class="hljs-string">Engine</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Community</span><br> <span class="hljs-attr">Version:</span>           <span class="hljs-number">20.10</span><span class="hljs-number">.8</span><br> <span class="hljs-attr">API version:</span>       <span class="hljs-number">1.41</span><br> <span class="hljs-attr">Go version:</span>        <span class="hljs-string">go1.16.6</span><br> <span class="hljs-attr">Git commit:</span>        <span class="hljs-string">3967b7d</span><br> <span class="hljs-attr">Built:</span>             <span class="hljs-string">Fri</span> <span class="hljs-string">Jul</span> <span class="hljs-number">30</span> <span class="hljs-number">19</span><span class="hljs-string">:55:49</span> <span class="hljs-number">2021</span><br> <span class="hljs-attr">OS/Arch:</span>           <span class="hljs-string">linux/amd64</span><br> <span class="hljs-attr">Context:</span>           <span class="hljs-string">default</span><br> <span class="hljs-attr">Experimental:</span>      <span class="hljs-literal">true</span><br><br><span class="hljs-attr">Server:</span> <span class="hljs-string">Docker</span> <span class="hljs-string">Engine</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Community</span><br> <span class="hljs-attr">Engine:</span><br>  <span class="hljs-attr">Version:</span>          <span class="hljs-number">20.10</span><span class="hljs-number">.8</span><br>  <span class="hljs-attr">API version:</span>      <span class="hljs-number">1.41</span> <span class="hljs-string">(minimum</span> <span class="hljs-string">version</span> <span class="hljs-number">1.12</span><span class="hljs-string">)</span><br>  <span class="hljs-attr">Go version:</span>       <span class="hljs-string">go1.16.6</span><br>  <span class="hljs-attr">Git commit:</span>       <span class="hljs-string">75249d8</span><br>  <span class="hljs-attr">Built:</span>            <span class="hljs-string">Fri</span> <span class="hljs-string">Jul</span> <span class="hljs-number">30</span> <span class="hljs-number">19</span><span class="hljs-string">:54:13</span> <span class="hljs-number">2021</span><br>  <span class="hljs-attr">OS/Arch:</span>          <span class="hljs-string">linux/amd64</span><br>  <span class="hljs-attr">Experimental:</span>     <span class="hljs-literal">false</span><br> <span class="hljs-attr">containerd:</span><br>  <span class="hljs-attr">Version:</span>          <span class="hljs-number">1.4</span><span class="hljs-number">.9</span><br>  <span class="hljs-attr">GitCommit:</span>        <span class="hljs-string">e25210fe30a0a703442421b0f60afac609f950a3</span><br> <span class="hljs-attr">runc:</span><br>  <span class="hljs-attr">Version:</span>          <span class="hljs-number">1.0</span><span class="hljs-number">.1</span><br>  <span class="hljs-attr">GitCommit:</span>        <span class="hljs-string">v1.0.1-0-g4144b63</span><br> <span class="hljs-attr">docker-init:</span><br>  <span class="hljs-attr">Version:</span>          <span class="hljs-number">0.19</span><span class="hljs-number">.0</span><br>  <span class="hljs-attr">GitCommit:</span>        <span class="hljs-string">de40ad0</span><br></code></pre></td></tr></table></figure>
+<p>6、启动 docker</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">systemctl <span class="hljs-literal">start</span> docker<br></code></pre></td></tr></table></figure>
+<p>查看 docker 版本</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">docker <span class="hljs-built_in">version</span><br></code></pre></td></tr></table></figure>
+<p>重启 docker</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart docker</span><br></code></pre></td></tr></table></figure>
+<p>关闭 docker</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">systemctl stop docker<br></code></pre></td></tr></table></figure>
+<p>7、<code>hello-world</code></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> hello-world<br></code></pre></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs livescript">[root@bogon chziyue]<span class="hljs-comment"># docker run hello-world</span><br>Unable <span class="hljs-keyword">to</span> find image <span class="hljs-string">&#x27;hello-world:latest&#x27;</span> locally<br>latest: Pulling <span class="hljs-keyword">from</span> library/hello-world<br>b8dfde127a29: Pull complete <br>Digest: sha256:<span class="hljs-number">7d</span>91b69e04a9029b99f3585aaaccae2baa80bcf318f4a5d2165a9898cd2dc0a1<br>Status: Downloaded newer image <span class="hljs-keyword">for</span> hello-world:latest<br><br>Hello <span class="hljs-keyword">from</span> Docker!<br>This message shows <span class="hljs-literal">that</span> your installation appears <span class="hljs-keyword">to</span> be working correctly.<br><br>To generate <span class="hljs-built_in">this</span> message, Docker took the following steps:<br> <span class="hljs-number">1.</span> The Docker client contacted the Docker daemon.<br> <span class="hljs-number">2.</span> The Docker daemon pulled the <span class="hljs-string">&quot;hello-world&quot;</span> image <span class="hljs-keyword">from</span> the Docker Hub.<br>    (amd64)<br> <span class="hljs-number">3.</span> The Docker daemon created a <span class="hljs-keyword">new</span> container <span class="hljs-keyword">from</span> <span class="hljs-literal">that</span> image which runs the<br>    executable <span class="hljs-literal">that</span> produces the output you are currently reading.<br> <span class="hljs-number">4.</span> The Docker daemon streamed <span class="hljs-literal">that</span> output <span class="hljs-keyword">to</span> the Docker client, which sent <span class="hljs-literal">it</span><br>    <span class="hljs-keyword">to</span> your terminal.<br><br>To <span class="hljs-keyword">try</span> something more ambitious, you can run an Ubuntu container with:<br> $ docker run -<span class="hljs-literal">it</span> ubuntu bash<br><br>Share images, automate workflows, <span class="hljs-keyword">and</span> more <span class="hljs-keyword">with</span> a free Docker ID:<br> https:<span class="hljs-regexp">//hub.docker.com/</span><br><span class="hljs-regexp"></span><br><span class="hljs-regexp">For more examples and ideas, visit:</span><br><span class="hljs-regexp"> https://</span>docs.docker.com/get-started/<br></code></pre></td></tr></table></figure>
+<p>8、查看下载的 <code>hello-world</code> 镜像</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@bogon chziyue]<span class="hljs-comment"># docker images</span><br>REPOSITORY    <span class="hljs-keyword">TAG</span>       <span class="hljs-title">IMAGE</span> ID       CREATED        SIZE<br>hello-world   latest    d1165f221234   <span class="hljs-number">6</span> months ago   <span class="hljs-number">13.3</span>kB<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>卸载 docker</p>
+</blockquote>
+<p>1、卸载依赖</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">yum <span class="hljs-built_in">remove</span> docker-<span class="hljs-keyword">ce</span> docker-<span class="hljs-keyword">ce</span>-cli containerd.io<br></code></pre></td></tr></table></figure>
+<p>2、删除资源</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">rm -rf <span class="hljs-regexp">/var/</span>lib/docker<br>rm -rf <span class="hljs-regexp">/var/</span>lib/containerd<br></code></pre></td></tr></table></figure>
+<h3 id="docker-的常用命令"><a href="#docker-的常用命令" class="headerlink" title="docker 的常用命令"></a>docker 的常用命令</h3><p>帮助命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker version       <span class="hljs-regexp">//</span>显示docker的版本信息<br>docker info          <span class="hljs-regexp">//</span>显示docker的系统信息，包括镜像和容器的数量<br>docker 命令 --help   <span class="hljs-regexp">//</span>帮助命令<br></code></pre></td></tr></table></figure>
+<p>帮助文档的地址：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/docker/">https://docs.docker.com/engine/reference/commandline/docker/</a></p>
+<h4 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h4><p><strong>docker images 查看所有本地主机上的镜像</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk">[root@bogon chziyue]<span class="hljs-comment"># docker images</span><br>REPOSITORY    TAG       IMAGE ID       CREATED        SIZE<br>hello-world   latest    d1165f221234   <span class="hljs-number">6</span> months ago   <span class="hljs-number">13.3</span>kB<br><br><span class="hljs-regexp">//</span>解释<br>REPOSITORY   <span class="hljs-regexp">//</span>镜像的仓库源<br>TAG          <span class="hljs-regexp">//</span>镜像的标签<br>IMAGE ID     <span class="hljs-regexp">//</span>镜像的id<br>CREATED      <span class="hljs-regexp">//</span>镜像的创建时间<br>SIZE         <span class="hljs-regexp">//</span>镜像的大小<br><br><span class="hljs-regexp">//</span>可选项<br>-a, --all    <span class="hljs-regexp">//</span>列出所有镜像<br>-q, --quiet  <span class="hljs-regexp">//</span>只显示镜像的id<br></code></pre></td></tr></table></figure>
+<p><strong>docker search 搜索镜像</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7"><span class="hljs-comment">[root@bogon chziyue]</span># docker search mysql<br>NAME                              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED<br>mysql                             MySQL <span class="hljs-keyword">is</span> a widely used, <span class="hljs-keyword">open</span>-source relation…   11409     <span class="hljs-comment">[OK]</span>       <br>mariadb                           MariaDB Server <span class="hljs-keyword">is</span> a high performing <span class="hljs-keyword">open</span> sou…   4334      <span class="hljs-comment">[OK]</span>       <br></code></pre></td></tr></table></figure>
+<p>可选项，通过搜藏来过滤 <code>--filter==STARS=3000</code> 搜索出来的镜像就是STARS大于3000的</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[root@bogon chziyue]# docker <span class="hljs-keyword">search</span> mysql <span class="hljs-comment">--filter=stars=3000</span><br><span class="hljs-type">NAME</span>      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED<br>mysql     MySQL <span class="hljs-keyword">is</span> a widely used, <span class="hljs-keyword">open</span>-source relation…   <span class="hljs-number">11409</span>     [OK]       <br>mariadb   MariaDB <span class="hljs-keyword">Server</span> <span class="hljs-keyword">is</span> a high performing <span class="hljs-keyword">open</span> sou…   <span class="hljs-number">4334</span>      [OK]       <br>[root@bogon chziyue]# docker <span class="hljs-keyword">search</span> mysql <span class="hljs-comment">--filter=stars=5000</span><br><span class="hljs-type">NAME</span>      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED<br>mysql     MySQL <span class="hljs-keyword">is</span> a widely used, <span class="hljs-keyword">open</span>-source relation…   <span class="hljs-number">11409</span>     [OK]     <br></code></pre></td></tr></table></figure>
+<p><strong>docker pull 下载镜像</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vim">//下载镜像 docker pull 镜像名[:<span class="hljs-keyword">tag</span>]<br>[root@bogon chziyue]# docker pull mysql<br>Using default <span class="hljs-keyword">ta</span><span class="hljs-variable">g:</span> latest<br>lates<span class="hljs-variable">t:</span> Pulling from library/mysql<br>a330b6cecb98: Pull <span class="hljs-built_in">complete</span>     //分层下载，kocker iamge 的核心 联合文件系统<br><span class="hljs-number">9</span>c8f656c32b8: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">88</span>e473c3f553: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">062463</span>ea5d2f: Pull <span class="hljs-built_in">complete</span> <br>daf7e3bdf4b6: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">1839</span>c0b7aac9: Pull <span class="hljs-built_in">complete</span> <br>cf0a0cfee6d0: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">1</span>b42041bb11e: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">10459</span>d86c7e6: Pull <span class="hljs-built_in">complete</span> <br>b7199599d5f9: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">1</span>d6f51e17d45: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">50</span>e0789bacad: Pull <span class="hljs-built_in">complete</span> <br>Diges<span class="hljs-variable">t:</span> <span class="hljs-built_in">sha256</span>:<span class="hljs-number">99</span>e0989e7e3797cfbdb8d51a19d32c8d286dd8862794d01a547651a896bcf00c //签名<br>Statu<span class="hljs-variable">s:</span> Downloaded newer image <span class="hljs-keyword">for</span> mysq<span class="hljs-variable">l:latest</span><br>docker.io/library/mysq<span class="hljs-variable">l:latest</span> //真实地址<br></code></pre></td></tr></table></figure>
+<p>两条命令效果是一样的</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker pull mysql<br>docker pull docker.io<span class="hljs-regexp">/library/my</span>sql:latest<br></code></pre></td></tr></table></figure>
+
+<p>指定版本下载</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@bogon chziyue]# docker pull mysq<span class="hljs-variable">l:5</span>.<span class="hljs-number">7</span><br><span class="hljs-number">5.7</span>: Pulling from library/mysql<br>a330b6cecb98: Already <span class="hljs-built_in">exists</span> <br><span class="hljs-number">9</span>c8f656c32b8: Already <span class="hljs-built_in">exists</span> <br><span class="hljs-number">88</span>e473c3f553: Already <span class="hljs-built_in">exists</span> <br><span class="hljs-number">062463</span>ea5d2f: Already <span class="hljs-built_in">exists</span> <br>daf7e3bdf4b6: Already <span class="hljs-built_in">exists</span> <br><span class="hljs-number">1839</span>c0b7aac9: Already <span class="hljs-built_in">exists</span> <br>cf0a0cfee6d0: Already <span class="hljs-built_in">exists</span> <br>fae7a809788c: Pull <span class="hljs-built_in">complete</span> <br>dae5a82a61f0: Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">7063</span>da9569e<span class="hljs-variable">b:</span> Pull <span class="hljs-built_in">complete</span> <br><span class="hljs-number">51</span>a9a9b4ef36: Pull <span class="hljs-built_in">complete</span> <br>Diges<span class="hljs-variable">t:</span> <span class="hljs-built_in">sha256</span>:d9b934cdf6826629f8d02ea01f28b2c4ddb1ae27c32664b14867324b3e5e1291<br>Statu<span class="hljs-variable">s:</span> Downloaded newer image <span class="hljs-keyword">for</span> mysq<span class="hljs-variable">l:5</span>.<span class="hljs-number">7</span><br>docker.io/library/mysq<span class="hljs-variable">l:5</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+<p>查看下载的镜像</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@bogon chziyue]<span class="hljs-comment"># docker images</span><br>REPOSITORY    <span class="hljs-keyword">TAG</span>       <span class="hljs-title">IMAGE</span> ID       CREATED        SIZE<br>mysql         <span class="hljs-number">5.7</span>       <span class="hljs-number">1</span>d7aba917169   <span class="hljs-number">10</span> days ago    <span class="hljs-number">448M</span>B<br>mysql         latest    <span class="hljs-number">0716</span>d6ebcc1a   <span class="hljs-number">10</span> days ago    <span class="hljs-number">514M</span>B<br>hello-world   latest    d1165f221234   <span class="hljs-number">6</span> months ago   <span class="hljs-number">13.3</span>kB<br></code></pre></td></tr></table></figure>
+<p><strong>docker rmi 删除镜像</strong></p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gml">[root@bogon chziyue]# docker rmi -f 镜像<span class="hljs-symbol">id</span>                     <span class="hljs-comment">//删除指定的镜像</span><br>[root@bogon chziyue]# docker rmi -f 镜像<span class="hljs-symbol">id</span> 镜像<span class="hljs-symbol">id</span> 镜像<span class="hljs-symbol">id</span> 镜像<span class="hljs-symbol">id</span> <span class="hljs-comment">//删除多个镜像</span><br>[root@bogon chziyue]# docker rmi -f $(docker images -aq)      <span class="hljs-comment">//删除全部的镜像</span><br></code></pre></td></tr></table></figure>
+<h4 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h4><p>说明：有了镜像才可以创建容器，linux，下载一个 centos 镜像</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker pull centos</span><br></code></pre></td></tr></table></figure>
+<p><strong>新建容器并启动</strong></p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs haml">docker run [可选参数] image<br><span class="hljs-comment"></span><br><span class="hljs-comment">//参数说明</span><br>-<span class="ruby">-name=<span class="hljs-string">&quot;Name&quot;</span>   容器名字 tomcat01 tomcat02，用来区分容器</span><br><span class="ruby"></span>-<span class="ruby">d              后台方式运行</span><br><span class="ruby"></span>-<span class="ruby">it             使用交互方式运行，进入容器查看内容</span><br><span class="ruby"></span>-<span class="ruby">p              指定容器的端口 -p <span class="hljs-number">8080</span><span class="hljs-symbol">:</span><span class="hljs-number">8080</span></span><br><span class="ruby"></span>    -<span class="ruby">p <span class="hljs-symbol">ip:</span>主机端口<span class="hljs-symbol">:</span>容器端口</span><br><span class="ruby"></span>    -<span class="ruby">p 主机端口<span class="hljs-symbol">:</span>容器端口 (常用)</span><br><span class="ruby"></span>    -<span class="ruby">p 容器端口</span><br><span class="ruby"></span>    容器端口<br>-<span class="ruby">P              随机指定端口</span><br></code></pre></td></tr></table></figure>
+<p>测试，启动进入容器</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tcl">[root@bogon chziyue]# docker run -it centos /bin/bash<br>[root@<span class="hljs-number">3000</span>d155ddf7 /]# ls //查看容器内的目录<br>bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  <span class="hljs-keyword">proc</span><span class="hljs-title">  root</span> <span class="hljs-title"> run</span> <span class="hljs-title"> sbin</span> <span class="hljs-title"> srv</span> <span class="hljs-title"> sys</span> <span class="hljs-title"> tmp</span> <span class="hljs-title"> usr</span> <span class="hljs-title"> var</span><br></code></pre></td></tr></table></figure>
+<p>从容器中退回主机</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">[root@<span class="hljs-number">3000</span>d155ddf7 /]<span class="hljs-comment"># exit</span><br><span class="hljs-keyword">exit</span><br>[root@bogon /]<span class="hljs-comment"># ls</span><br>bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br></code></pre></td></tr></table></figure>
+<p>列出所有运行的容器</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker ps     <span class="hljs-regexp">//</span>列出当前正在运行的容器<br>-a            <span class="hljs-regexp">//</span>列出当前正在运行的容器+历史运行过的容器<br>-n=?          <span class="hljs-regexp">//</span>显示最近创建的容器<br>-q            <span class="hljs-regexp">//</span>只显示容器的编号<br><br>[root@bogon /]<span class="hljs-comment"># docker ps</span><br>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<br>[root@bogon /]<span class="hljs-comment"># docker ps -a</span><br>CONTAINER ID   IMAGE          COMMAND       CREATED             STATUS                          PORTS     NAMES<br><span class="hljs-number">3000</span>d155ddf7   centos         <span class="hljs-string">&quot;/bin/bash&quot;</span>   <span class="hljs-number">3</span> minutes ago       Exited (<span class="hljs-number">0</span>) About a minute ago             kind_mccarthy<br><span class="hljs-number">005725</span>a350d3   d1165f221234   <span class="hljs-string">&quot;/hello&quot;</span>      About an hour ago   Exited (<span class="hljs-number">0</span>) About an hour ago              practical_ritchie<br></code></pre></td></tr></table></figure>
+<p><strong>退出容器</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">exit</span>    <span class="hljs-regexp">//</span>容器停止并退出<br>Ctrl + P + Q    <span class="hljs-regexp">//</span>容器不停止退出<br></code></pre></td></tr></table></figure>
+<p><strong>删除容器</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">docker <span class="hljs-built_in">rm</span> 容器id                 //删除指定的容器，不能删除正在运行的容器，如果要强制删除 <span class="hljs-built_in">rm</span> <span class="hljs-operator">-f</span><br>docker <span class="hljs-built_in">rm</span> <span class="hljs-operator">-f</span> <span class="hljs-variable">$</span>(docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-aq</span>)    //删除所有的容器<br>docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-a</span> <span class="hljs-literal">-q</span>|xargs docker <span class="hljs-built_in">rm</span>  //删除所有的容器<br></code></pre></td></tr></table></figure>
+<p><strong>启动和停止容器的操作</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker start 容器id     <span class="hljs-regexp">//</span>启动容器<br>docker restart 容器id   <span class="hljs-regexp">//</span>重启容器<br>docker stop 容器id      <span class="hljs-regexp">//</span>停止当前正在运行的容器<br>docker kill 容器id      <span class="hljs-regexp">//</span>强制停止当前容器<br></code></pre></td></tr></table></figure>
+<h4 id="常用的其他命令"><a href="#常用的其他命令" class="headerlink" title="常用的其他命令"></a>常用的其他命令</h4><p>后台启动容器</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>docker run -d 镜像名<br>[root@bogon /]<span class="hljs-comment"># docker run -d centos</span><br><br><span class="hljs-regexp">//</span>docker ps, 发现 centos 停止了<br><span class="hljs-regexp">//</span>说明：docker 容器使用后台运行，必须要有一个前台进程，docker发现没有应用，就会自动停止<br><span class="hljs-regexp">//</span>nginx 容器启动后，发现自己没有提供服务，就会立刻停止<br></code></pre></td></tr></table></figure>
+<p><strong>查看日志</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker logs -tf --tail 容器<br><br><span class="hljs-regexp">//</span>编写一段 shell 脚本来产生日志<br><span class="hljs-regexp">//</span>创建一个 <span class="hljs-keyword">while</span> 循环，每隔<span class="hljs-number">1</span>秒输出一句 Hello<br><span class="hljs-regexp">//</span>启动并执行 shell 脚本<br>[root@bogon <span class="hljs-regexp">/]# docker run -d centos /</span>bin/sh -c <span class="hljs-string">&quot;while true;do echo Hello;sleep 1;done&quot;</span><br><span class="hljs-number">30</span>b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362<br><br><span class="hljs-regexp">//</span>查看运行中的镜像<br>[root@bogon /]<span class="hljs-comment"># docker ps</span><br>CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS     NAMES<br><span class="hljs-number">30</span>b9e1d3e0e1   centos    <span class="hljs-string">&quot;/bin/sh -c &#x27;while t…&quot;</span>   <span class="hljs-number">5</span> seconds ago   Up <span class="hljs-number">4</span> seconds             bold_jemison<br><br><span class="hljs-regexp">//</span>显示日志<br>-tf             <span class="hljs-regexp">//</span>显示日志<br>--tail number   <span class="hljs-regexp">//</span>要显示日志的条数<br>[root@bogon /]<span class="hljs-comment"># docker logs -tf --tail 10 30b9e1d3e0e1</span><br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">15.454797542</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">16.460296968</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">17.465308111</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">18.471366290</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">19.475148265</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">20.478896705</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">21.485814153</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">22.489167933</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">23.492039723</span>Z Hello<br><span class="hljs-number">2021</span>-<span class="hljs-number">09</span>-<span class="hljs-number">13</span>T13:<span class="hljs-number">38</span>:<span class="hljs-number">24.498429851</span>Z Hello<br></code></pre></td></tr></table></figure>
+<p><strong>查看容器中进程信息</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>docker top 容器id<br>[root@bogon /]<span class="hljs-comment"># docker top 30b9e1d3e0e1</span><br>UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD<br>root                <span class="hljs-number">5226</span>                <span class="hljs-number">5207</span>                <span class="hljs-number">0</span>                   <span class="hljs-number">21</span>:<span class="hljs-number">37</span>               ?                   <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>            <span class="hljs-regexp">/bin/</span>sh -c <span class="hljs-keyword">while</span> true;<span class="hljs-keyword">do</span> echo Hello;sleep <span class="hljs-number">1</span>;done<br>root                <span class="hljs-number">6036</span>                <span class="hljs-number">5226</span>                <span class="hljs-number">0</span>                   <span class="hljs-number">21</span>:<span class="hljs-number">47</span>               ?                   <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>            <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/coreutils --coreutils-prog-shebang=sleep /u</span>sr<span class="hljs-regexp">/bin/</span>sleep <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p><strong>查看镜像的元数据</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">//docker inspect 容器id</span><br><br><span class="hljs-comment">//测试</span><br>[<span class="hljs-meta">root@bogon /</span>]<span class="hljs-meta"># docker inspect 30b9e1d3e0e1</span><br>[<span class="hljs-meta"></span><br><span class="hljs-meta">    &#123;</span><br><span class="hljs-meta">        <span class="hljs-meta-string">&quot;Id&quot;</span>: <span class="hljs-meta-string">&quot;30b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362&quot;</span>,</span><br><span class="hljs-meta">        <span class="hljs-meta-string">&quot;Created&quot;</span>: <span class="hljs-meta-string">&quot;2021-09-13T13:37:02.838337914Z&quot;</span>,</span><br><span class="hljs-meta">        <span class="hljs-meta-string">&quot;Path&quot;</span>: <span class="hljs-meta-string">&quot;/bin/sh&quot;</span>,</span><br><span class="hljs-meta">        <span class="hljs-meta-string">&quot;Args&quot;</span>: [</span><br><span class="hljs-meta">            <span class="hljs-meta-string">&quot;-c&quot;</span>,</span><br><span class="hljs-meta">            <span class="hljs-meta-string">&quot;while true;do echo Hello;sleep 1;done&quot;</span></span><br><span class="hljs-meta">        </span>],<br>        <span class="hljs-string">&quot;State&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;Status&quot;</span>: <span class="hljs-string">&quot;running&quot;</span>,<br>            <span class="hljs-string">&quot;Running&quot;</span>: <span class="hljs-literal">true</span>,<br>            <span class="hljs-string">&quot;Paused&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;Restarting&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;OOMKilled&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;Dead&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;Pid&quot;</span>: <span class="hljs-number">5226</span>,<br>            <span class="hljs-string">&quot;ExitCode&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;Error&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;StartedAt&quot;</span>: <span class="hljs-string">&quot;2021-09-13T13:37:03.113992667Z&quot;</span>,<br>            <span class="hljs-string">&quot;FinishedAt&quot;</span>: <span class="hljs-string">&quot;0001-01-01T00:00:00Z&quot;</span><br>        &#125;,<br>        <span class="hljs-string">&quot;Image&quot;</span>: <span class="hljs-string">&quot;sha256:300e315adb2f96afe5f0b2780b87f28ae95231fe3bdd1e16b9ba606307728f55&quot;</span>,<br>        <span class="hljs-string">&quot;ResolvConfPath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/30b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362/resolv.conf&quot;</span>,<br>        <span class="hljs-string">&quot;HostnamePath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/30b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362/hostname&quot;</span>,<br>        <span class="hljs-string">&quot;HostsPath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/30b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362/hosts&quot;</span>,<br>        <span class="hljs-string">&quot;LogPath&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/containers/30b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362/30b9e1d3e0e154e206cb8820c344e19f4cbb0020d147f3a9d35db5659f488362-json.log&quot;</span>,<br>        <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;/bold_jemison&quot;</span>,<br>        <span class="hljs-string">&quot;RestartCount&quot;</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-string">&quot;Driver&quot;</span>: <span class="hljs-string">&quot;overlay2&quot;</span>,<br>        <span class="hljs-string">&quot;Platform&quot;</span>: <span class="hljs-string">&quot;linux&quot;</span>,<br>        <span class="hljs-string">&quot;MountLabel&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-string">&quot;ProcessLabel&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-string">&quot;AppArmorProfile&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-string">&quot;ExecIDs&quot;</span>: <span class="hljs-literal">null</span>,<br>        <span class="hljs-string">&quot;HostConfig&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;Binds&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;ContainerIDFile&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;LogConfig&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;Type&quot;</span>: <span class="hljs-string">&quot;json-file&quot;</span>,<br>                <span class="hljs-string">&quot;Config&quot;</span>: &#123;&#125;<br>            &#125;,<br>            <span class="hljs-string">&quot;NetworkMode&quot;</span>: <span class="hljs-string">&quot;default&quot;</span>,<br>            <span class="hljs-string">&quot;PortBindings&quot;</span>: &#123;&#125;,<br>            <span class="hljs-string">&quot;RestartPolicy&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;no&quot;</span>,<br>                <span class="hljs-string">&quot;MaximumRetryCount&quot;</span>: <span class="hljs-number">0</span><br>            &#125;,<br>            <span class="hljs-string">&quot;AutoRemove&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;VolumeDriver&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;VolumesFrom&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;CapAdd&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;CapDrop&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;CgroupnsMode&quot;</span>: <span class="hljs-string">&quot;host&quot;</span>,<br>            <span class="hljs-string">&quot;Dns&quot;</span>: [],<br>            <span class="hljs-string">&quot;DnsOptions&quot;</span>: [],<br>            <span class="hljs-string">&quot;DnsSearch&quot;</span>: [],<br>            <span class="hljs-string">&quot;ExtraHosts&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;GroupAdd&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;IpcMode&quot;</span>: <span class="hljs-string">&quot;private&quot;</span>,<br>            <span class="hljs-string">&quot;Cgroup&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;Links&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;OomScoreAdj&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;PidMode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;Privileged&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;PublishAllPorts&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;ReadonlyRootfs&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;SecurityOpt&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;UTSMode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;UsernsMode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;ShmSize&quot;</span>: <span class="hljs-number">67108864</span>,<br>            <span class="hljs-string">&quot;Runtime&quot;</span>: <span class="hljs-string">&quot;runc&quot;</span>,<br>            <span class="hljs-string">&quot;ConsoleSize&quot;</span>: [<br>                <span class="hljs-number">0</span>,<br>                <span class="hljs-number">0</span><br>            ],<br>            <span class="hljs-string">&quot;Isolation&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;CpuShares&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;Memory&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;NanoCpus&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;CgroupParent&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;BlkioWeight&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;BlkioWeightDevice&quot;</span>: [],<br>            <span class="hljs-string">&quot;BlkioDeviceReadBps&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;BlkioDeviceWriteBps&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;BlkioDeviceReadIOps&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;BlkioDeviceWriteIOps&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;CpuPeriod&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;CpuQuota&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;CpuRealtimePeriod&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;CpuRealtimeRuntime&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;CpusetCpus&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;CpusetMems&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;Devices&quot;</span>: [],<br>            <span class="hljs-string">&quot;DeviceCgroupRules&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;DeviceRequests&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;KernelMemory&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;KernelMemoryTCP&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;MemoryReservation&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;MemorySwap&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;MemorySwappiness&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;OomKillDisable&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;PidsLimit&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;Ulimits&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;CpuCount&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;CpuPercent&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;IOMaximumIOps&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;IOMaximumBandwidth&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;MaskedPaths&quot;</span>: [<br>                <span class="hljs-string">&quot;/proc/asound&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/acpi&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/kcore&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/keys&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/latency_stats&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/timer_list&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/timer_stats&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/sched_debug&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/scsi&quot;</span>,<br>                <span class="hljs-string">&quot;/sys/firmware&quot;</span><br>            ],<br>            <span class="hljs-string">&quot;ReadonlyPaths&quot;</span>: [<br>                <span class="hljs-string">&quot;/proc/bus&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/fs&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/irq&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/sys&quot;</span>,<br>                <span class="hljs-string">&quot;/proc/sysrq-trigger&quot;</span><br>            ]<br>        &#125;,<br>        <span class="hljs-string">&quot;GraphDriver&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;Data&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;LowerDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/f48ed78571e899feb1e6ef75274effd5898f67e1f03ce2707b6139b024a15b90-init/diff:/var/lib/docker/overlay2/02dacaffc64f4460948b0da3bfc99ae662a954517bdf99a022ddba4252daaeb1/diff&quot;</span>,<br>                <span class="hljs-string">&quot;MergedDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/f48ed78571e899feb1e6ef75274effd5898f67e1f03ce2707b6139b024a15b90/merged&quot;</span>,<br>                <span class="hljs-string">&quot;UpperDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/f48ed78571e899feb1e6ef75274effd5898f67e1f03ce2707b6139b024a15b90/diff&quot;</span>,<br>                <span class="hljs-string">&quot;WorkDir&quot;</span>: <span class="hljs-string">&quot;/var/lib/docker/overlay2/f48ed78571e899feb1e6ef75274effd5898f67e1f03ce2707b6139b024a15b90/work&quot;</span><br>            &#125;,<br>            <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;overlay2&quot;</span><br>        &#125;,<br>        <span class="hljs-string">&quot;Mounts&quot;</span>: [],<br>        <span class="hljs-string">&quot;Config&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;Hostname&quot;</span>: <span class="hljs-string">&quot;30b9e1d3e0e1&quot;</span>,<br>            <span class="hljs-string">&quot;Domainname&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;User&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;AttachStdin&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;AttachStdout&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;AttachStderr&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;Tty&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;OpenStdin&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;StdinOnce&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;Env&quot;</span>: [<br>                <span class="hljs-string">&quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;</span><br>            ],<br>            <span class="hljs-string">&quot;Cmd&quot;</span>: [<br>                <span class="hljs-string">&quot;/bin/sh&quot;</span>,<br>                <span class="hljs-string">&quot;-c&quot;</span>,<br>                <span class="hljs-string">&quot;while true;do echo Hello;sleep 1;done&quot;</span><br>            ],<br>            <span class="hljs-string">&quot;Image&quot;</span>: <span class="hljs-string">&quot;centos&quot;</span>,<br>            <span class="hljs-string">&quot;Volumes&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;WorkingDir&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;Entrypoint&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;OnBuild&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;Labels&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;org.label-schema.build-date&quot;</span>: <span class="hljs-string">&quot;20201204&quot;</span>,<br>                <span class="hljs-string">&quot;org.label-schema.license&quot;</span>: <span class="hljs-string">&quot;GPLv2&quot;</span>,<br>                <span class="hljs-string">&quot;org.label-schema.name&quot;</span>: <span class="hljs-string">&quot;CentOS Base Image&quot;</span>,<br>                <span class="hljs-string">&quot;org.label-schema.schema-version&quot;</span>: <span class="hljs-string">&quot;1.0&quot;</span>,<br>                <span class="hljs-string">&quot;org.label-schema.vendor&quot;</span>: <span class="hljs-string">&quot;CentOS&quot;</span><br>            &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;NetworkSettings&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;Bridge&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;SandboxID&quot;</span>: <span class="hljs-string">&quot;ce8566838ea1d35d1dcf361ad753f5bb0ee30d1620fbebb2472295d1bbebb1d0&quot;</span>,<br>            <span class="hljs-string">&quot;HairpinMode&quot;</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-string">&quot;LinkLocalIPv6Address&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;LinkLocalIPv6PrefixLen&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;Ports&quot;</span>: &#123;&#125;,<br>            <span class="hljs-string">&quot;SandboxKey&quot;</span>: <span class="hljs-string">&quot;/var/run/docker/netns/ce8566838ea1&quot;</span>,<br>            <span class="hljs-string">&quot;SecondaryIPAddresses&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;SecondaryIPv6Addresses&quot;</span>: <span class="hljs-literal">null</span>,<br>            <span class="hljs-string">&quot;EndpointID&quot;</span>: <span class="hljs-string">&quot;92a040160498a98fdc9fac4194cd8f8fce42c92269bb5a0bb207333c21593ed6&quot;</span>,<br>            <span class="hljs-string">&quot;Gateway&quot;</span>: <span class="hljs-string">&quot;172.17.0.1&quot;</span>,<br>            <span class="hljs-string">&quot;GlobalIPv6Address&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;GlobalIPv6PrefixLen&quot;</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-string">&quot;IPAddress&quot;</span>: <span class="hljs-string">&quot;172.17.0.2&quot;</span>,<br>            <span class="hljs-string">&quot;IPPrefixLen&quot;</span>: <span class="hljs-number">16</span>,<br>            <span class="hljs-string">&quot;IPv6Gateway&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;MacAddress&quot;</span>: <span class="hljs-string">&quot;02:42:ac:11:00:02&quot;</span>,<br>            <span class="hljs-string">&quot;Networks&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;bridge&quot;</span>: &#123;<br>                    <span class="hljs-string">&quot;IPAMConfig&quot;</span>: <span class="hljs-literal">null</span>,<br>                    <span class="hljs-string">&quot;Links&quot;</span>: <span class="hljs-literal">null</span>,<br>                    <span class="hljs-string">&quot;Aliases&quot;</span>: <span class="hljs-literal">null</span>,<br>                    <span class="hljs-string">&quot;NetworkID&quot;</span>: <span class="hljs-string">&quot;baf930fbe322744c4b381bb941632068493b359bbd6ae45b320785ed5b471c90&quot;</span>,<br>                    <span class="hljs-string">&quot;EndpointID&quot;</span>: <span class="hljs-string">&quot;92a040160498a98fdc9fac4194cd8f8fce42c92269bb5a0bb207333c21593ed6&quot;</span>,<br>                    <span class="hljs-string">&quot;Gateway&quot;</span>: <span class="hljs-string">&quot;172.17.0.1&quot;</span>,<br>                    <span class="hljs-string">&quot;IPAddress&quot;</span>: <span class="hljs-string">&quot;172.17.0.2&quot;</span>,<br>                    <span class="hljs-string">&quot;IPPrefixLen&quot;</span>: <span class="hljs-number">16</span>,<br>                    <span class="hljs-string">&quot;IPv6Gateway&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>                    <span class="hljs-string">&quot;GlobalIPv6Address&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>                    <span class="hljs-string">&quot;GlobalIPv6PrefixLen&quot;</span>: <span class="hljs-number">0</span>,<br>                    <span class="hljs-string">&quot;MacAddress&quot;</span>: <span class="hljs-string">&quot;02:42:ac:11:00:02&quot;</span>,<br>                    <span class="hljs-string">&quot;DriverOpts&quot;</span>: <span class="hljs-literal">null</span><br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>]<br><br></code></pre></td></tr></table></figure>
+<p><strong>进入当前正在运行的容器</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>通常容器都是使用后台方式运行的，需要进入容器，修改一些配置<br><br><span class="hljs-regexp">//</span>命令<br>docker exec -it 容器id bashShell<br><br><span class="hljs-regexp">//</span>测试<br>[root@bogon /]<span class="hljs-comment"># docker ps</span><br>CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS     NAMES<br><span class="hljs-number">30</span>b9e1d3e0e1   centos    <span class="hljs-string">&quot;/bin/sh -c &#x27;while t…&quot;</span>   <span class="hljs-number">20</span> minutes ago   Up <span class="hljs-number">20</span> minutes             bold_jemison<br>[root@bogon <span class="hljs-regexp">/]# docker exec -it 30b9e1d3e0e1 /</span>bin/bash<br>[root@<span class="hljs-number">30</span>b9e1d3e0e1 /]<span class="hljs-comment"># ls</span><br>bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br>[root@<span class="hljs-number">30</span>b9e1d3e0e1 /]<span class="hljs-comment"># ps -ef</span><br>UID         PID   PPID  C STIME TTY          TIME CMD<br>root          <span class="hljs-number">1</span>      <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">13</span>:<span class="hljs-number">37</span> ?        <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> <span class="hljs-regexp">/bin/</span>sh -c <span class="hljs-keyword">while</span> true;<span class="hljs-keyword">do</span> echo Hello;sleep <span class="hljs-number">1</span>;done<br>root       <span class="hljs-number">1229</span>      <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">13</span>:<span class="hljs-number">57</span> pts<span class="hljs-regexp">/0    00:00:00 /</span>bin/bash<br>root       <span class="hljs-number">1253</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0</span> <span class="hljs-number">13</span>:<span class="hljs-number">57</span> ?        <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/coreutils --coreutils-prog-shebang=sleep /u</span>sr<span class="hljs-regexp">/bin/</span>sleep <span class="hljs-number">1</span><br>root       <span class="hljs-number">1254</span>   <span class="hljs-number">1229</span>  <span class="hljs-number">0</span> <span class="hljs-number">13</span>:<span class="hljs-number">57</span> pts/<span class="hljs-number">0</span>    <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> ps -ef<br><br><br><span class="hljs-regexp">//</span>方式二<br>docker attach 容器id<br><span class="hljs-regexp">//</span>测试<br>[root@<span class="hljs-number">30</span>b9e1d3e0e1 /]<span class="hljs-comment"># docker attach 30b9e1d3e0e1</span><br><br>docker exec    <span class="hljs-regexp">//</span>进入容器后开启一个新的终端，可以在里面操作(常用)<br>docker attach  <span class="hljs-regexp">//</span>进入容器正在执行的终端，不会启动新的进程<br></code></pre></td></tr></table></figure>
+<p><strong>从容器内拷贝文件到主机上</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker cp 容器id:容器内路径 目的地主机路径<br><br><span class="hljs-regexp">//</span>查看当前主机 home 目录<br>[root@bogon home]<span class="hljs-comment"># ls</span><br>chziyue<br><br><span class="hljs-regexp">//</span>进入容器内部<br>[root@bogon home]<span class="hljs-comment"># docker attach c8f6c548a9f8</span><br>[root@c8f6c548a9f8 <span class="hljs-regexp">/]# cd /</span>home <br>[root@c8f6c548a9f8 home]<span class="hljs-comment"># ls</span><br><br><span class="hljs-regexp">//</span>在容器内新建 index.html 文件<br>[root@c8f6c548a9f8 home]<span class="hljs-comment"># touch index.html</span><br>[root@c8f6c548a9f8 home]<span class="hljs-comment"># ls</span><br>index.html<br><br><span class="hljs-regexp">//</span>退出容器<br>[root@c8f6c548a9f8 home]<span class="hljs-comment"># exit</span><br><span class="hljs-keyword">exit</span><br>[root@bogon home]<span class="hljs-comment"># docker ps</span><br>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<br>[root@bogon home]<span class="hljs-comment"># docker ps -a</span><br>CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                      PORTS     NAMES<br>c8f6c548a9f8   centos    <span class="hljs-string">&quot;/bin/bash&quot;</span>   <span class="hljs-number">3</span> minutes ago   Exited (<span class="hljs-number">0</span>) <span class="hljs-number">10</span> seconds ago             stupefied_buck<br><br><span class="hljs-regexp">//</span>将 index.html 拷贝出来到主机上<br>[root@bogon home]<span class="hljs-comment"># docker cp c8f6c548a9f8:/home/index.html /home</span><br>[root@bogon home]<span class="hljs-comment"># ls</span><br>chziyue  index.html<br><br><span class="hljs-regexp">//</span>拷贝是一个手动过程，未来还可以使用 -v 卷的技术，实现文件自动同步<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">技术文档</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章仅供学习和交流所用，未经作者允许，均禁止转载！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/15/Docker-%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker 容器数据卷</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/11/Debian-WEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Debian WEB服务器部署笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"spr42ebQeBnCHn4MLIoM4OpK-gzGzoHsz","appKey":"4MMsrYC38yldjvCfDYwFIsqc","placeholder":"评论支持 Markdown 语法","path":"window.location.pathname","avatar":"wavatar","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":["nick","mail"]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script> <script>LA.init({id: "JR5MduEn518Vyd4G",ck: "JR5MduEn518Vyd4G"})</script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Copyright © 2017 - 2021  <a href="https://chziyue.com" target="_blank"><span>chziyue.com</span></a> All Rights Reserved. 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
