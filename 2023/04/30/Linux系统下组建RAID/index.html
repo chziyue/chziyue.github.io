@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      11
        分钟
     </span>
   
@@ -245,21 +245,21 @@
             
             <div class="markdown-body">
               <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>磁盘阵列是由很多块独立的磁盘，组合成一个容量巨大的磁盘组，利用个别磁盘提供数据所产生加成效果提升整个磁盘系统效能。利用这项技术，将数据切割成许多区段，分别存放在各个硬盘上。</p>
-<h2 id="RAID级别介绍"><a href="#RAID级别介绍" class="headerlink" title="RAID级别介绍"></a>RAID级别介绍</h2><h3 id="RAID0"><a href="#RAID0" class="headerlink" title="RAID0"></a>RAID0</h3><p>实现 RAID 0需要两块以上硬盘，以两块硬盘组 RAID 0为例，两块硬盘合为一块，数据同时分散在两块硬盘，带宽加倍，读写性能也加倍，但是它不提供数据冗余保护。一旦数据损坏将无法找回，它的容量利用率为100%。</p>
-<h3 id="RAID1"><a href="#RAID1" class="headerlink" title="RAID1"></a>RAID1</h3><p>组 RAID 1需要两块硬盘，其工作原理是将一份完整的数据，复制到另一块硬盘中，一份原始数据，一份镜像数据，两块硬盘容量等同于一块硬盘容量，容量为硬盘总容量的50%，写速度通常较慢，但是读取速度较单一硬盘来的快。工作磁盘受到损坏，系统会从镜像磁盘读取数据，数据可被找回。</p>
-<h3 id="RAID5"><a href="#RAID5" class="headerlink" title="RAID5"></a>RAID5</h3><p>组 RAID5 至少需要3块硬盘。 是将数据以块为单位分散到各个硬盘，不对数据做备份，把数据和其对应的奇偶校验信息存储到组成 RAID 5的各个磁盘。当一个磁盘的数据毁坏，可通过校验信息恢复数据，如下图所示 ，用四块硬盘组 RAID5如果数据 A3毁坏，通过 A1+A2+Ap 可以恢复 A3， 如果数据 C2毁坏，通过 C1+Cp+C3来恢复 C2。组 RAID 5最多可以坏一块硬盘，它的容量为（n-1）块硬盘总容量。</p>
-<h3 id="RAID6"><a href="#RAID6" class="headerlink" title="RAID6"></a>RAID6</h3><p>RAID 6是基于 RAID5 技术基础上，与 RAID 5不同的是，组 RAID 6最少需要4块盘，每个数据块有两套奇偶校验信息，两套奇偶校验信息采取不同的算法。即使两块硬盘数据同时丢失，也不会影响数据的使用。如下图所示，假如数据A1和数据A2丢失，通过A3、Ap 、Aq 可以恢复数据 A1和 A3。组 RAID 6最多允许坏2块硬盘，它的容量为（n-2）块硬盘总容量。</p>
+<h2 id="RAID-级别介绍"><a href="#RAID-级别介绍" class="headerlink" title="RAID 级别介绍"></a>RAID 级别介绍</h2><h3 id="RAID0"><a href="#RAID0" class="headerlink" title="RAID0"></a>RAID0</h3><p>实现 RAID0 需要两块以上硬盘，以两块硬盘组 RAID0 为例，两块硬盘合为一块，数据同时分散在两块硬盘，带宽加倍，读写性能也加倍，但是它不提供数据冗余保护。一旦数据损坏将无法找回，它的容量利用率为100%。</p>
+<h3 id="RAID1"><a href="#RAID1" class="headerlink" title="RAID1"></a>RAID1</h3><p>组 RAID1 需要两块硬盘，其工作原理是将一份完整的数据，复制到另一块硬盘中，一份原始数据，一份镜像数据，两块硬盘容量等同于一块硬盘容量，容量为硬盘总容量的50%，写速度通常较慢，但是读取速度较单一硬盘来的快。工作磁盘受到损坏，系统会从镜像磁盘读取数据，数据可被找回。</p>
+<h3 id="RAID5"><a href="#RAID5" class="headerlink" title="RAID5"></a>RAID5</h3><p>组 RAID5 至少需要3块硬盘。 是将数据以块为单位分散到各个硬盘，不对数据做备份，把数据和其对应的奇偶校验信息存储到组成 RAID5 的各个磁盘。当一个磁盘的数据毁坏，可通过校验信息恢复数据，如下图所示 ，用四块硬盘组 RAID5如果数据 A3毁坏，通过 A1+A2+Ap 可以恢复 A3， 如果数据 C2 毁坏，通过 C1+Cp+C3 来恢复 C2。组 RAID5 最多可以坏一块硬盘，它的容量为（n-1）块硬盘总容量。</p>
+<h3 id="RAID6"><a href="#RAID6" class="headerlink" title="RAID6"></a>RAID6</h3><p>RAID6 是基于 RAID5 技术基础上，与 RAID5 不同的是，组 RAID6 最少需要4块盘，每个数据块有两套奇偶校验信息，两套奇偶校验信息采取不同的算法。即使两块硬盘数据同时丢失，也不会影响数据的使用。如下图所示，假如数据A1和数据 A2 丢失，通过 A3、Ap 、Aq 可以恢复数据 A1 和 A3。组 RAID6 最多允许坏2块硬盘，它的容量为（n-2）块硬盘总容量。</p>
 <h3 id="RAID01-和-RAID10"><a href="#RAID01-和-RAID10" class="headerlink" title="RAID01 和 RAID10"></a>RAID01 和 RAID10</h3><p>RAID01 是先做条带化再作镜像，本质是对物理磁盘实现镜像；而 RAID10 是先做镜像再作条带化，是对虚拟磁盘实现镜像。</p>
-<p>RAID01 兼备了 RAID0 和 RAID1 的优点，它先用两块磁盘建立镜像，然后再在镜像内部做条带化。 RAID01 的数据将同时写入到两个磁盘阵列中，如果其中一个阵列损坏，仍可继续工作，保证数据安全性的同时又提高了性能。 RAID01 和 RAID10 内部都含有 RAID1 模式，因此整体磁盘利用率均仅为 50% 。</p>
-<h2 id="以Ubuntu系统为例，组建10盘RAID6全过程"><a href="#以Ubuntu系统为例，组建10盘RAID6全过程" class="headerlink" title="以Ubuntu系统为例，组建10盘RAID6全过程"></a>以Ubuntu系统为例，组建10盘RAID6全过程</h2><p>查看目录结构</p>
+<p>RAID01 兼备了 RAID0 和 RAID1 的优点，它先用两块磁盘建立镜像，然后再在镜像内部做条带化。RAID01 的数据将同时写入到两个磁盘阵列中，如果其中一个阵列损坏，仍可继续工作，保证数据安全性的同时又提高了性能。RAID01 和 RAID10 内部都含有 RAID1 模式，因此整体磁盘利用率均仅为 50% 。</p>
+<h2 id="以-Ubuntu-系统为例，组建10盘-RAID6-全过程"><a href="#以-Ubuntu-系统为例，组建10盘-RAID6-全过程" class="headerlink" title="以 Ubuntu 系统为例，组建10盘 RAID6 全过程"></a>以 Ubuntu 系统为例，组建10盘 RAID6 全过程</h2><p>查看目录结构</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">lsblk<br></code></pre></td></tr></table></figure>
-<p>安装mdadm</p>
+<p>安装 mdadm</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt install mdadm<br></code></pre></td></tr></table></figure>
-<p>创建RAID</p>
+<p>创建 RAID</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mdadm -Cv /dev/md0 -n 10 -l 6 -a yes /dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf /dev/sdg /dev/sdh /dev/sdi /dev/sdj<br></code></pre></td></tr></table></figure>
-<p>mdadm参数说明</p>
+<p>mdadm 参数说明</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">-C：    创建<br>-a：    检测设备<br>-n：    指定设备数量<br>-l：    指定RAID级别<br>-v：    显示过程<br>-f：    模拟设备损坏<br>-r：    移除设备<br>-Q：    查看摘要信息<br>-D：    查看详细信息<br>-S：    停止RAID磁盘阵列<br></code></pre></td></tr></table></figure>
-<p>格式化RAID</p>
+<p>格式化 RAID</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkfs.ext4 /dev/md0<br></code></pre></td></tr></table></figure>
 <p>临时挂载目录</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mount /dev/md0 /home/md0/<br></code></pre></td></tr></table></figure>
@@ -273,13 +273,13 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">shutdown -r now<br></code></pre></td></tr></table></figure>
 <p>显示磁盘使用信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">df -h<br></code></pre></td></tr></table></figure>
-<p>显示RAID磁盘阵列信息</p>
+<p>显示 RAID 磁盘阵列信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/mdstat<br></code></pre></td></tr></table></figure>
-<p>显示RAID信息</p>
+<p>显示 RAID 信息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mdadm -D /dev/md0<br></code></pre></td></tr></table></figure>
-<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>显示CPU温度</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>显示 CPU 温度</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°<br></code></pre></td></tr></table></figure>
-<p>安装hddtemp </p>
+<p>安装 hddtemp </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt install hddtemp<br></code></pre></td></tr></table></figure>
 <p>显示所有磁盘温度</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hddtemp /dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf /dev/sdg /dev/sdh /dev/sdi /dev/sdj /dev/sdk /dev/sdl<br></code></pre></td></tr></table></figure>
