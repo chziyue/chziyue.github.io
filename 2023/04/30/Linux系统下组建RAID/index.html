@@ -20,7 +20,7 @@
   <meta name="author" content="Midnight">
   <meta name="keywords" content="">
   
-  <title>Linux系统下组建RAID全过程 - MIDNIGHT&#39;S BLOG</title>
+  <title>Linux系统下组建RAID - MIDNIGHT&#39;S BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Linux系统下组建RAID全过程">
+            <span class="h2" id="subtitle" title="Linux系统下组建RAID">
               
             </span>
 
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      204 字
+      235 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      3
        分钟
     </span>
   
@@ -235,7 +235,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux系统下组建RAID全过程</h1>
+            <h1 style="display: none">Linux系统下组建RAID</h1>
             
               <p class="note note-info">
                 
@@ -264,6 +264,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mount -a<br></code></pre></td></tr></table></figure>
 <p>重启电脑</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">shutdown -r now<br></code></pre></td></tr></table></figure>
+<p>显示磁盘使用信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">df -h<br></code></pre></td></tr></table></figure>
+<p>显示RAID磁盘阵列信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/mdstat<br></code></pre></td></tr></table></figure>
+<p>显示RAID信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mdadm -D /dev/md0<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
