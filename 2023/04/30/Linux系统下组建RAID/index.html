@@ -239,13 +239,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2023年4月30日 晚上
+                  本文最后更新于：2023年5月8日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>磁盘阵列是由很多块独立的磁盘，组合成一个容量巨大的磁盘组，利用个别磁盘提供数据所产生加成效果提升整个磁盘系统效能。利用这项技术，将数据切割成许多区段，分别存放在各个硬盘上。</p>
-<h2 id="RAID-级别介绍"><a href="#RAID-级别介绍" class="headerlink" title="RAID 级别介绍"></a>RAID 级别介绍</h2><h3 id="RAID0"><a href="#RAID0" class="headerlink" title="RAID0"></a>RAID0</h3><p>实现 RAID0 需要两块以上硬盘，以两块硬盘组 RAID0 为例，两块硬盘合为一块，数据同时分散在两块硬盘，带宽加倍，读写性能也加倍，但是它不提供数据冗余保护。一旦数据损坏将无法找回，它的容量利用率为100%。</p>
+<h3 id="RAID-级别介绍"><a href="#RAID-级别介绍" class="headerlink" title="RAID 级别介绍"></a>RAID 级别介绍</h3><h3 id="RAID0"><a href="#RAID0" class="headerlink" title="RAID0"></a>RAID0</h3><p>实现 RAID0 需要两块以上硬盘，以两块硬盘组 RAID0 为例，两块硬盘合为一块，数据同时分散在两块硬盘，带宽加倍，读写性能也加倍，但是它不提供数据冗余保护。一旦数据损坏将无法找回，它的容量利用率为100%。</p>
 <h3 id="RAID1"><a href="#RAID1" class="headerlink" title="RAID1"></a>RAID1</h3><p>组 RAID1 需要两块硬盘，其工作原理是将一份完整的数据，复制到另一块硬盘中，一份原始数据，一份镜像数据，两块硬盘容量等同于一块硬盘容量，容量为硬盘总容量的50%，写速度通常较慢，但是读取速度较单一硬盘来的快。工作磁盘受到损坏，系统会从镜像磁盘读取数据，数据可被找回。</p>
 <h3 id="RAID5"><a href="#RAID5" class="headerlink" title="RAID5"></a>RAID5</h3><p>组 RAID5 至少需要3块硬盘。 是将数据以块为单位分散到各个硬盘，不对数据做备份，把数据和其对应的奇偶校验信息存储到组成 RAID5 的各个磁盘。当一个磁盘的数据毁坏，可通过校验信息恢复数据，如下图所示 ，用四块硬盘组 RAID5如果数据 A3毁坏，通过 A1+A2+Ap 可以恢复 A3， 如果数据 C2 毁坏，通过 C1+Cp+C3 来恢复 C2。组 RAID5 最多可以坏一块硬盘，它的容量为（n-1）块硬盘总容量。</p>
 <h3 id="RAID6"><a href="#RAID6" class="headerlink" title="RAID6"></a>RAID6</h3><p>RAID6 是基于 RAID5 技术基础上，与 RAID5 不同的是，组 RAID6 最少需要4块盘，每个数据块有两套奇偶校验信息，两套奇偶校验信息采取不同的算法。即使两块硬盘数据同时丢失，也不会影响数据的使用。如下图所示，假如数据A1和数据 A2 丢失，通过 A3、Ap 、Aq 可以恢复数据 A1 和 A3。组 RAID6 最多允许坏2块硬盘，它的容量为（n-2）块硬盘总容量。</p>
