@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      154 字
+      150 字
     </span>
   
 
@@ -248,11 +248,11 @@
 <h3 id="安装-apcupsd"><a href="#安装-apcupsd" class="headerlink" title="安装 apcupsd"></a>安装 apcupsd</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt install apcupsd<br></code></pre></td></tr></table></figure>
 <h3 id="配置-apcupsd"><a href="#配置-apcupsd" class="headerlink" title="配置 apcupsd"></a>配置 apcupsd</h3><p>修改 apcupsd 配置文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nano /etc/apcupsd/apcupsd.conf<br></code></pre></td></tr></table></figure>
-<p>在 UPSCABLE 后指定为 usb</p>
+<p>在 UPSCABLE 后添加 usb</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">UPSCABLE usb<br></code></pre></td></tr></table></figure>
-<p>在 UPSTYPE 后更改为 usb</p>
+<p>在 UPSTYPE 后添加 usb</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">UPSTYPE usb<br></code></pre></td></tr></table></figure>
-<p>在 DEVICE 后留空，这样系统便会自动检测 USB 连接 UPS</p>
+<p>在 DEVICE 后留空，系统便会自动检测 USB 连接 UPS</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">DEVICE<br></code></pre></td></tr></table></figure>
 <p>断电后自动关机（满足其中任一条件便会触发）<br>UPS剩余电量小于50%时关闭服务器</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">BATTERYLEVEL 50<br></code></pre></td></tr></table></figure>
