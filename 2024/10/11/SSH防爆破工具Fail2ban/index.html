@@ -16,11 +16,11 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Conda是一个强大的开源包管理系统和环境管理系统,广泛应用于数据科学、机器学习和科学计算领域。它不仅可以管理Python包,还支持多种编程语言。Conda的主要优势在于其ability to create, save, load and switch between environments on your local computer。这使得项目依赖管理和版本控制变得更加简单和高效。">
+  <meta name="description" content="在当今的网络环境中,服务器安全已成为一个不容忽视的问题。SSH（Secure Shell）作为远程管理服务器的重要工具,常常成为黑客攻击的首选目标。面对持续不断的暴力破解尝试,系统管理员需要一个可靠的防御工具来保护服务器安全。">
   <meta name="author" content="Midnight">
   <meta name="keywords" content="">
   
-  <title>Conda环境管理工具 - MIDNIGHT&#39;S BLOG</title>
+  <title>SSH防爆破工具Fail2ban - MIDNIGHT&#39;S BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Conda环境管理工具">
+            <span class="h2" id="subtitle" title="SSH防爆破工具Fail2ban">
               
             </span>
 
@@ -175,8 +175,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-10-08 23:27" pubdate>
-        2024年10月8日 晚上
+      <time datetime="2024-10-11 19:56" pubdate>
+        2024年10月11日 晚上
       </time>
     </span>
   
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      410 字
+      669 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -235,50 +235,54 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Conda环境管理工具</h1>
+            <h1 style="display: none">SSH防爆破工具Fail2ban</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2024年10月9日 晚上
+                  本文最后更新于：2024年10月11日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Conda是一个强大的开源包管理系统和环境管理系统,广泛应用于数据科学、机器学习和科学计算领域。它不仅可以管理Python包,还支持多种编程语言。Conda的主要优势在于其ability to create, save, load and switch between environments on your local computer。这使得项目依赖管理和版本控制变得更加简单和高效。</p>
-<p>本文将介绍如何安装Conda(通过Miniconda),配置国内镜像源以加速下载,以及一些常用的Conda命令。无论你是数据科学新手还是经验丰富的开发者,掌握Conda的使用都将极大地提高你的工作效率。</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>miniconda下载地址</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/anaconda/mi</span>niconda/<br></code></pre></td></tr></table></figure>
-<h3 id="配置源"><a href="#配置源" class="headerlink" title="配置源"></a>配置源</h3><p>创建文件</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">nano ~<span class="hljs-string">/.condarc</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">channels:<br>  - defaults<br>show_channel_urls: true<br>default_channels:<br>  - https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/anaconda/</span>pkgs/main<br>  - https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/anaconda/</span>pkgs/r<br>  - https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/anaconda/</span>pkgs/msys2<br>custom_channels:<br>  conda-forge: https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/anaconda/</span>cloud<br>  pytorch: https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/anaconda/</span>cloud<br></code></pre></td></tr></table></figure>
-<p>清除索引缓存</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">conda clean -<span class="hljs-selector-tag">i</span><br></code></pre></td></tr></table></figure>
-<p>取消终端默认进入Conda Base环境</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">conda<span class="hljs-built_in"> config </span>--<span class="hljs-builtin-name">set</span> auto_activate_base <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>帮助</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
-<p>新建虚拟环境test</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">conda</span> create -n test python=<span class="hljs-number">3</span>.<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
-<p>查看已创建的虚拟环境</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">conda <span class="hljs-keyword">env</span> list<br></code></pre></td></tr></table></figure>
-<p>进入虚拟环境</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">conda <span class="hljs-built_in">activate</span> test<br></code></pre></td></tr></table></figure>
-<p>删除虚拟环境</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">conda <span class="hljs-keyword">remove</span> -n <span class="hljs-keyword">test</span> --all<br></code></pre></td></tr></table></figure>
-<h3 id="虚拟环境内命令"><a href="#虚拟环境内命令" class="headerlink" title="虚拟环境内命令"></a>虚拟环境内命令</h3><p>查看已安装的包</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">conda list</span><br></code></pre></td></tr></table></figure>
-<p>安装包</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">conda <span class="hljs-keyword">install</span> <br></code></pre></td></tr></table></figure>
-<p>将已安装的包名导出到文件</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">conda list -e &gt; <span class="hljs-regexp">/home/</span>test.txt<br></code></pre></td></tr></table></figure>
-<p>从名单文件安装所有包</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">conda install -f <span class="hljs-regexp">/home/</span>test.txt<br></code></pre></td></tr></table></figure>
-<p>更新包</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">conda update</span><br></code></pre></td></tr></table></figure>
-<p>更新所有包</p>
-<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">conda <span class="hljs-keyword">update</span> --<span class="hljs-keyword">all</span><br></code></pre></td></tr></table></figure>
-<p>退出虚拟环境</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">conda deactivate</span><br></code></pre></td></tr></table></figure>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在当今的网络环境中,服务器安全已成为一个不容忽视的问题。SSH（Secure Shell）作为远程管理服务器的重要工具,常常成为黑客攻击的首选目标。面对持续不断的暴力破解尝试,系统管理员需要一个可靠的防御工具来保护服务器安全。</p>
+<p>Fail2ban就是这样一个强大而灵活的安全工具。它能够监控系统日志,自动检测可疑的登录尝试,并在发现攻击行为时采取相应的防御措施,如暂时封禁攻击源IP地址。这不仅能有效减少服务器遭受的攻击压力,还能大大提高系统的安全性。</p>
+<p>本文将详细介绍Fail2ban的安装、配置和使用方法,帮助你更好地保护您的Linux服务器免受SSH暴力破解的威胁。无论您是经验丰富的系统管理员,还是刚开始接触服务器安全的新手,相信这篇教程都能为你提供有价值的信息和实用的操作指南。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">apt</span> install fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Fail2Ban安装包中含有一个名为jail.conf的默认配置文件。 升级Fail2Ban时，该文件将被覆盖。<br>解决方案是将jail.conf文件复制到一个名为jail.local的文件中。 我们将定制的的配置更改存入jail.local中。这个文件在升级过程中将保持不变。 Fail2Ban启动时会优先读取jail.local作为配置文件<br>进入包目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/etc/</span>fail2ban/<br></code></pre></td></tr></table></figure>
+<p>复制配置文件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">cp jail.<span class="hljs-keyword">conf</span> jail.<span class="hljs-keyword">local</span><br></code></pre></td></tr></table></figure>
+<p>修改配置文件</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">nano jail.<span class="hljs-keyword">local</span><br></code></pre></td></tr></table></figure>
+<p>指定哪些IP/域名等可以忽略fail2ban的防御,空格分割</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">ignorecommand</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br></code></pre></td></tr></table></figure>
+<p>封禁该IP的时间,m=分,只填数字按秒算</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">bantime</span>  = <span class="hljs-number">10</span>m<br></code></pre></td></tr></table></figure>
+<p>检测密码输入错误的间隔时间,结合maxretry使用,10分钟内错误3次即封禁</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">findtime</span>  = <span class="hljs-number">10</span>m<br></code></pre></td></tr></table></figure>
+<p>检测密码输入错误次数,结合findtime 使用,60秒内错误3次即封禁</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">maxretry</span> = <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<p>[sshd]下面添加</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">enabled</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">maxretry</span> = <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<p>启动fail2ban</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">systemctl</span> restart fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
+<p>查看启动状态</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">systemctl</span> status fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
+<p>显示Active: active (running)说明已成功启动</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>查看已启用的模块</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">fail2ban-<span class="hljs-keyword">client</span> status<br></code></pre></td></tr></table></figure>
+<p>显示有一个sshd已启用</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">Status</span><br>|- <span class="hljs-keyword">Number</span> of jail:      <span class="hljs-number">1</span><br>`- Jail list:   sshd<br></code></pre></td></tr></table></figure>
+<p>显示sshd详细信息</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">fail2ban-<span class="hljs-keyword">client</span> status sshd<br></code></pre></td></tr></table></figure>
+<p>显示失败次数和封禁情况</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">Status for the jail: sshd<br>|<span class="hljs-string">- Filter</span><br><span class="hljs-string"></span>|<span class="hljs-string">  </span>|<span class="hljs-string">- Currently failed: 0</span><br><span class="hljs-string"></span>|<span class="hljs-string">  </span>|<span class="hljs-string">- Total failed:     0</span><br><span class="hljs-string"></span>|<span class="hljs-string">  `- File list:        /var/log/auth.log</span><br><span class="hljs-string">`- Actions</span><br><span class="hljs-string">   </span>|<span class="hljs-string">- Currently banned: 0</span><br><span class="hljs-string">   </span>|<span class="hljs-string">- Total banned:     0</span><br><span class="hljs-string">   `- Banned IP list:</span><br></code></pre></td></tr></table></figure>
+<h3 id="手动解封"><a href="#手动解封" class="headerlink" title="手动解封"></a>手动解封</h3><p>解封单独IP</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fail2ban</span>-client unban <span class="hljs-number">192.168.1.16</span><br></code></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams">fail2ban-client <span class="hljs-keyword">set</span> sshd <span class="hljs-comment">unbanip 192.168.1.16</span><br></code></pre></td></tr></table></figure>
+<p>解封所有</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">fail2ban-client unban <span class="hljs-comment">--all</span><br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -298,7 +302,7 @@
                     
                       <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
                     
-                      <a class="hover-with-bg" href="/tags/CentOS/">CentOS</a>
+                      <a class="hover-with-bg" href="/tags/Ubuntu/">Ubuntu</a>
                     
                   </div>
                 
@@ -315,18 +319,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/11/SSH%E9%98%B2%E7%88%86%E7%A0%B4%E5%B7%A5%E5%85%B7Fail2ban/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SSH防爆破工具Fail2ban</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/29/%E7%BC%96%E8%AF%91OpenWrt/">
-                        <span class="hidden-mobile">编译OpenWrt</span>
+                      <a href="/2024/10/08/Conda%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                        <span class="hidden-mobile">Conda环境管理工具</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
