@@ -22,8 +22,6 @@
       
       <tag>Linux</tag>
       
-      <tag>Ubuntu</tag>
-      
     </tags>
     
   </entry>
@@ -49,8 +47,6 @@
       
       <tag>Linux</tag>
       
-      <tag>CentOS</tag>
-      
     </tags>
     
   </entry>
@@ -72,6 +68,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>Linux</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -84,6 +86,12 @@
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Apcupsd 是一个 UPS 控制系统，允许在发生电源故障时有序关闭计算机。</p><h3 id="安装-apcupsd"><a href="#安装-apcupsd" class="headerlink" title="安装 apcupsd"></a>安装 apcupsd</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt install apcupsd<br></code></pre></td></tr></table></figure><h3 id="配置-apcupsd"><a href="#配置-apcupsd" class="headerlink" title="配置 apcupsd"></a>配置 apcupsd</h3><p>修改 apcupsd 配置文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nano /etc/apcupsd/apcupsd.conf<br></code></pre></td></tr></table></figure><p>在 UPSCABLE 后添加 usb</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">UPSCABLE usb<br></code></pre></td></tr></table></figure><p>在 UPSTYPE 后添加 usb</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">UPSTYPE usb<br></code></pre></td></tr></table></figure><p>在 DEVICE 后留空，系统便会自动检测 USB 连接 UPS</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">DEVICE<br></code></pre></td></tr></table></figure><p>断电后自动关机（满足其中任一条件便会触发）<br>UPS剩余电量小于50%时关闭服务器</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">BATTERYLEVEL 50<br></code></pre></td></tr></table></figure><p>UPS电池剩余时间小于10分钟时关闭服务器</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">MINUTES 10<br></code></pre></td></tr></table></figure><p>重启 apcupsd</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl restart apcupsd.service<br></code></pre></td></tr></table></figure><p>查看UPS运行状态</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apcaccess<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+    </tags>
     
   </entry>
   
@@ -157,8 +165,6 @@
     <tags>
       
       <tag>Linux</tag>
-      
-      <tag>Ubuntu</tag>
       
       <tag>RAID</tag>
       
@@ -249,6 +255,8 @@
       
       <tag>Docker</tag>
       
+      <tag>Linux</tag>
+      
     </tags>
     
   </entry>
@@ -274,6 +282,8 @@
       
       <tag>Docker</tag>
       
+      <tag>Linux</tag>
+      
     </tags>
     
   </entry>
@@ -297,9 +307,9 @@
     
     <tags>
       
-      <tag>Debian</tag>
-      
       <tag>WEB</tag>
+      
+      <tag>Linux</tag>
       
     </tags>
     
@@ -332,8 +342,6 @@
       
       <tag>Linux</tag>
       
-      <tag>CentOS</tag>
-      
     </tags>
     
   </entry>
@@ -357,9 +365,9 @@
     
     <tags>
       
-      <tag>Debian</tag>
-      
       <tag>WEB</tag>
+      
+      <tag>Linux</tag>
       
     </tags>
     
