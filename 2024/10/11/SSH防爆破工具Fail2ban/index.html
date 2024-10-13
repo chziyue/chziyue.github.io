@@ -239,12 +239,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2024年10月13日 凌晨
+                  本文最后更新于：2024年10月13日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在当今的网络环境中,服务器安全已成为一个不容忽视的问题。SSH（Secure Shell）作为远程管理服务器的重要工具,常常成为黑客攻击的首选目标。面对持续不断的暴力破解尝试,系统管理员需要一个可靠的防御工具来保护服务器安全。</p>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在当今的网络环境中,服务器安全已成为一个不容忽视的问题。SSH（Secure Shell）作为远程管理服务器的重要工具,常常成为黑客攻击的首选目标。面对持续不断的暴力破解尝试,系统管理员需要一个可靠的防御工具来保护服务器安全。</p>
 <p>Fail2ban就是这样一个强大而灵活的安全工具。它能够监控系统日志,自动检测可疑的登录尝试,并在发现攻击行为时采取相应的防御措施,如暂时封禁攻击源IP地址。这不仅能有效减少服务器遭受的攻击压力,还能大大提高系统的安全性。</p>
 <p>本文将详细介绍Fail2ban的安装、配置和使用方法,帮助你更好地保护Linux服务器免受SSH暴力破解的威胁。无论是经验丰富的系统管理员,还是刚开始接触服务器安全的新手,相信这篇教程都能为你提供有价值的信息和实用的操作指南。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">apt</span> install fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
