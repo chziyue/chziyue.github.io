@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      292 字
+      291 字
     </span>
   
 
@@ -255,7 +255,7 @@
 <p>列出可升级的包（包括安全更新）：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> --just-<span class="hljs-builtin-name">print</span><span class="hljs-built_in"> upgrade </span>| grep -i security<br></code></pre></td></tr></table></figure>
 <p>安装安全更新：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">sudo apt-get upgrade <span class="hljs-constructor">$(<span class="hljs-params">apt</span>-<span class="hljs-params">get</span> --<span class="hljs-params">just</span>-<span class="hljs-params">print</span> <span class="hljs-params">upgrade</span> | <span class="hljs-params">grep</span> -<span class="hljs-params">i</span> <span class="hljs-params">security</span> | <span class="hljs-params">awk</span> -F&#x27; &#x27; &#x27;&#123;<span class="hljs-params">print</span> $2&#125;&#x27; | <span class="hljs-params">tr</span> &#x27;\<span class="hljs-params">n</span>&#x27; &#x27; &#x27;)</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">apt-get upgrade <span class="hljs-constructor">$(<span class="hljs-params">apt</span>-<span class="hljs-params">get</span> --<span class="hljs-params">just</span>-<span class="hljs-params">print</span> <span class="hljs-params">upgrade</span> | <span class="hljs-params">grep</span> -<span class="hljs-params">i</span> <span class="hljs-params">security</span> | <span class="hljs-params">awk</span> -F&#x27; &#x27; &#x27;&#123;<span class="hljs-params">print</span> $2&#125;&#x27; | <span class="hljs-params">tr</span> &#x27;\<span class="hljs-params">n</span>&#x27; &#x27; &#x27;)</span><br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
