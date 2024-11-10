@@ -16,11 +16,11 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="YAY（Yet Another Yogurt）是 Arch Linux 最受欢迎的 AUR（Arch User Repository）助手工具。它使用 Go 语言开发，完美继承了 pacman 的操作语法，同时提供了更友好的界面和更强大的功能。">
+  <meta name="description" content="Pacman（Package Manager）是 Arch Linux 的官方包管理器，以其简洁高效而闻名。它不仅能够管理本地软件包，还能自动处理依赖关系，让系统维护变得简单。">
   <meta name="author" content="Midnight">
   <meta name="keywords" content="">
   
-  <title>YAY-最强大的AUR助手 - MIDNIGHT&#39;S BLOG</title>
+  <title>Pacman包管理工具 - MIDNIGHT&#39;S BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="YAY-最强大的AUR助手">
+            <span class="h2" id="subtitle" title="Pacman包管理工具">
               
             </span>
 
@@ -175,7 +175,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-11-10 15:55" pubdate>
+      <time datetime="2024-11-10 16:10" pubdate>
         2024年11月10日 下午
       </time>
     </span>
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      842 字
+      700 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      8
        分钟
     </span>
   
@@ -235,7 +235,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">YAY-最强大的AUR助手</h1>
+            <h1 style="display: none">Pacman包管理工具</h1>
             
               <p class="note note-info">
                 
@@ -244,31 +244,56 @@
               </p>
             
             <div class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>YAY（Yet Another Yogurt）是 Arch Linux 最受欢迎的 AUR（Arch User Repository）助手工具。它使用 Go 语言开发，完美继承了 pacman 的操作语法，同时提供了更友好的界面和更强大的功能。</p>
-<p>作为一个 AUR 助手，YAY 不仅可以管理官方仓库的软件包，还能轻松处理 AUR 仓库中的软件包。它的特点是：自动处理依赖关系、支持软件包搜索、提供交互式安装界面，并且在安装过程中会显示 PKGBUILD 内容以确保安全性。</p>
-<p>对于 Arch Linux 用户来说，YAY 是管理系统软件包的最佳选择之一。让我们来详细了解它的使用方法：</p>
-<h3 id="1-基本功能"><a href="#1-基本功能" class="headerlink" title="1. 基本功能"></a>1. 基本功能</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 安装 yay</span><br><span class="hljs-attribute">sudo</span> pacman -S yay<br><br><span class="hljs-comment"># 基础用法</span><br>yay -S 软件名     <span class="hljs-comment"># 安装软件</span><br>yay -Ss 关键词    <span class="hljs-comment"># 搜索软件</span><br>yay -Syu         <span class="hljs-comment"># 更新系统和 AUR 包</span><br>yay -R 软件名     <span class="hljs-comment"># 删除软件</span><br>yay -Yc          <span class="hljs-comment"># 清理不需要的依赖</span><br></code></pre></td></tr></table></figure>
-<h3 id="2-高级功能"><a href="#2-高级功能" class="headerlink" title="2. 高级功能"></a>2. 高级功能</h3><p>搜索和查看：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">yay</span> -Si 软件名    <span class="hljs-comment"># 查看软件详细信息</span><br>yay -Ps          <span class="hljs-comment"># 显示系统统计信息</span><br>yay -G 软件名     <span class="hljs-comment"># 下载 PKGBUILD</span><br></code></pre></td></tr></table></figure>
-<p>维护相关：</p>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">yay</span> -<span class="hljs-string">Scc</span>         <span class="hljs-comment"># 清理缓存</span><br><span class="hljs-string">yay</span> -<span class="hljs-string">Y</span> <span class="hljs-built_in">--gendb</span>   <span class="hljs-comment"># 生成开发包数据库</span><br><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span>       <span class="hljs-comment"># 保存当前设置为默认值</span><br></code></pre></td></tr></table></figure>
-<h3 id="3-常用参数组合"><a href="#3-常用参数组合" class="headerlink" title="3. 常用参数组合"></a>3. 常用参数组合</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta"># 仅更新 AUR 包</span><br>yay -Sua<br><br><span class="hljs-meta"># 搜索并显示包信息</span><br>yay -Ss 软件名 --sortby popularity<br><br><span class="hljs-meta"># 清理系统</span><br>yay -Yc &amp;&amp; yay -Scc<br></code></pre></td></tr></table></figure>
-<h3 id="4-YAY-的优点"><a href="#4-YAY-的优点" class="headerlink" title="4. YAY 的优点"></a>4. YAY 的优点</h3><p>易用性<br>语法与 pacman 类似<br>自动处理依赖关系<br>支持搜索过滤<br>功能强大<br>支持 AUR 投票<br>可以显示包的评论<br>支持开发包管理<br>安全性<br>安装前显示 PKGBUILD<br>可以检查包的完整性<br>支持 GPG 签名验证</p>
-<h3 id="5-实用技巧"><a href="#5-实用技巧" class="headerlink" title="5. 实用技巧"></a>5. 实用技巧</h3><p>配置设置</p>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span> <span class="hljs-built_in">--answerdiff</span> <span class="hljs-string">None</span>    <span class="hljs-comment"># 跳过差异对比</span><br><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span> <span class="hljs-built_in">--nocleanmenu</span>       <span class="hljs-comment"># 跳过清理提示</span><br><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span> <span class="hljs-built_in">--answeredit</span> <span class="hljs-string">None</span>   <span class="hljs-comment"># 跳过编辑提示</span><br></code></pre></td></tr></table></figure>
-<p>搜索优化</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-comment"># 按受欢迎程度排序</span><br>yay -Ss 软件名 <span class="hljs-comment">--sortby popularity</span><br><br><span class="hljs-comment"># 只搜索 AUR</span><br>yay -Ss 软件名 <span class="hljs-comment">--aur</span><br></code></pre></td></tr></table></figure>
-<p>系统维护</p>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-comment"># 完整系统更新</span><br><span class="hljs-string">yay</span> -<span class="hljs-string">Syu</span> <span class="hljs-built_in">--devel</span> <span class="hljs-built_in">--timeupdate</span><br><br><span class="hljs-comment"># 清理系统</span><br><span class="hljs-string">yay</span> -<span class="hljs-string">Yc</span> &amp;&amp; <span class="hljs-string">yay</span> -<span class="hljs-string">Scc</span><br></code></pre></td></tr></table></figure>
-<h3 id="6-注意事项"><a href="#6-注意事项" class="headerlink" title="6. 注意事项"></a>6. 注意事项</h3><p>安全建议<br>安装前查看 PKGBUILD<br>检查包的评论和投票<br>优先使用官方仓库<br>使用提示<br>定期更新系统<br>及时清理缓存<br>保持 AUR 包最新<br>故障排除</p>
-<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta"># 重建数据库</span><br>yay -Y --gendb<br><br><span class="hljs-meta"># 强制刷新</span><br>yay -Syy<br><br><span class="hljs-meta"># 修复损坏的包</span><br>yay -S 软件名 --rebuildall<br></code></pre></td></tr></table></figure>
-<h3 id="7-最佳实践"><a href="#7-最佳实践" class="headerlink" title="7. 最佳实践"></a>7. 最佳实践</h3><p>定期维护：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment"># 每周执行一次</span><br>yay -Syu              <span class="hljs-comment"># 更新系统</span><br>yay -Yc               <span class="hljs-comment"># 清理依赖</span><br>yay -<span class="hljs-keyword">Scc </span>             <span class="hljs-comment"># 清理缓存</span><br></code></pre></td></tr></table></figure>
-<p>安装新软件：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">yay</span> -Ss 软件名        <span class="hljs-comment"># 先搜索</span><br>yay -Si 软件名        <span class="hljs-comment"># 查看详情</span><br>yay -S 软件名         <span class="hljs-comment"># 确认无误后安装</span><br></code></pre></td></tr></table></figure>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Pacman（Package Manager）是 Arch Linux 的官方包管理器，以其简洁高效而闻名。它不仅能够管理本地软件包，还能自动处理依赖关系，让系统维护变得简单。</p>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="1-安装软件"><a href="#1-安装软件" class="headerlink" title="1. 安装软件"></a>1. 安装软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装单个包</span><br>pacman -S 包名<br><br><span class="hljs-comment"># 安装多个包</span><br>pacman -S 包名1 包名2<br><br><span class="hljs-comment"># 安装包组</span><br>pacman -S gnome<br><br><span class="hljs-comment"># 安装时跳过确认</span><br>pacman -S --noconfirm 包名<br></code></pre></td></tr></table></figure>
 
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>YAY 作为 Arch Linux 生态系统中的重要工具，极大地简化了包管理的复杂性。它不仅保持了 pacman 的强大功能，还为用户提供了更友好的界面和更丰富的特性。通过本文介绍的各种命令和技巧，相信你已经掌握了 YAY 的基本使用方法。</p>
-<p>在使用 AUR 时要特别注意安全性，养成查看 PKGBUILD 的好习惯。同时，定期更新和维护系统也是使用 Arch Linux 的重要原则。随着使用经验的积累，你会发现 YAY 是一个不可或缺的得力助手。</p>
+<h3 id="2-删除软件"><a href="#2-删除软件" class="headerlink" title="2. 删除软件"></a>2. 删除软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 删除单个包</span><br>pacman -R 包名<br><br><span class="hljs-comment"># 删除包及其依赖</span><br>pacman -Rs 包名<br><br><span class="hljs-comment"># 删除包及其依赖和配置文件</span><br>pacman -Rns 包名<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-系统更新"><a href="#3-系统更新" class="headerlink" title="3. 系统更新"></a>3. 系统更新</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 同步数据库</span><br>pacman -Sy<br><br><span class="hljs-comment"># 更新系统</span><br>pacman -Syu<br><br><span class="hljs-comment"># 强制同步数据库并更新</span><br>pacman -Syyu<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-查询和搜索"><a href="#4-查询和搜索" class="headerlink" title="4. 查询和搜索"></a>4. 查询和搜索</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 搜索包</span><br>pacman -Ss 关键词<br><br><span class="hljs-comment"># 查看已安装的包</span><br>pacman -Q<br><br><span class="hljs-comment"># 查看包的详细信息</span><br>pacman -Si 包名<br><br><span class="hljs-comment"># 查看本地包信息</span><br>pacman -Qi 包名<br><br><span class="hljs-comment"># 列出包的文件列表</span><br>pacman -Ql 包名<br></code></pre></td></tr></table></figure>
+
+<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><h3 id="1-缓存管理"><a href="#1-缓存管理" class="headerlink" title="1. 缓存管理"></a>1. 缓存管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 清理未安装的包缓存</span><br>pacman -Sc<br><br><span class="hljs-comment"># 清理所有缓存</span><br>pacman -Scc<br><br><span class="hljs-comment"># 下载包而不安装</span><br>pacman -Sw 包名<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-依赖处理"><a href="#2-依赖处理" class="headerlink" title="2. 依赖处理"></a>2. 依赖处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看依赖树</span><br>pactree 包名<br><br><span class="hljs-comment"># 查看被哪些包依赖</span><br>pactree -r 包名<br><br><span class="hljs-comment"># 检查孤立的包</span><br>pacman -Qdt<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-数据库维护"><a href="#3-数据库维护" class="headerlink" title="3. 数据库维护"></a>3. 数据库维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 检查问题</span><br>pacman -Dk<br><br><span class="hljs-comment"># 重新安装数据库</span><br>pacman -Sy archlinux-keyring<br><br><span class="hljs-comment"># 刷新密钥</span><br>pacman-key --refresh-keys<br></code></pre></td></tr></table></figure>
+
+<h2 id="常用技巧"><a href="#常用技巧" class="headerlink" title="常用技巧"></a>常用技巧</h2><h3 id="1-配置优化"><a href="#1-配置优化" class="headerlink" title="1. 配置优化"></a>1. 配置优化</h3><p>编辑 <code>/etc/pacman.conf</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启用彩色输出</span><br>Color<br><br><span class="hljs-comment"># 启用并行下载</span><br>ParallelDownloads = 5<br><br><span class="hljs-comment"># 显示进度条</span><br>ILoveCandy<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-镜像源管理"><a href="#2-镜像源管理" class="headerlink" title="2. 镜像源管理"></a>2. 镜像源管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 reflector</span><br>pacman -S reflector<br><br><span class="hljs-comment"># 更新最快的镜像源</span><br>reflector --country China --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-常见问题解决"><a href="#3-常见问题解决" class="headerlink" title="3. 常见问题解决"></a>3. 常见问题解决</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 锁文件问题</span><br>rm /var/lib/pacman/db.lck<br><br><span class="hljs-comment"># 强制重装包</span><br>pacman -S --force 包名<br><br><span class="hljs-comment"># 修复损坏的包</span><br>pacman -S $(pacman -Qkk | grep <span class="hljs-string">&quot;missing file&quot;</span> | cut -d<span class="hljs-string">&quot; &quot;</span> -f2)<br></code></pre></td></tr></table></figure>
+
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="1-定期维护"><a href="#1-定期维护" class="headerlink" title="1. 定期维护"></a>1. 定期维护</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 系统更新</span><br>pacman -Syu<br><br><span class="hljs-comment"># 清理缓存</span><br>pacman -Sc<br><br><span class="hljs-comment"># 检查孤立包</span><br>pacman -Qdt<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-安装前检查"><a href="#2-安装前检查" class="headerlink" title="2. 安装前检查"></a>2. 安装前检查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看包信息</span><br>pacman -Si 包名<br><br><span class="hljs-comment"># 查看依赖关系</span><br>pactree 包名<br></code></pre></td></tr></table></figure>
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li><p><strong>系统更新</strong></p>
+<ul>
+<li>更新前先查看 <a target="_blank" rel="noopener" href="https://archlinux.org/news/">Arch 新闻</a></li>
+<li>避免部分更新系统</li>
+<li>定期进行完整更新</li>
+</ul>
+</li>
+<li><p><strong>安全建议</strong></p>
+<ul>
+<li>只从官方源安装包</li>
+<li>定期同步密钥</li>
+<li>保持系统清洁</li>
+</ul>
+</li>
+<li><p><strong>故障预防</strong></p>
+<ul>
+<li>重要更新前先备份</li>
+<li>保留一些旧版本包</li>
+<li>记录已安装的包</li>
+</ul>
+</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Pacman 是 Arch Linux 的核心工具之一，掌握它的使用对于系统维护至关重要。它简洁的命令结构和强大的功能使得包管理变得轻松高效。通过本文的介绍，你应该已经掌握了 Pacman 的基本用法和一些进阶技巧。定期维护和谨慎操作是系统稳定的关键。 </p>
 
             </div>
             <hr>
@@ -303,18 +328,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/10/Pacman%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pacman包管理工具</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/13/Debian10%E5%8D%87%E7%BA%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0/">
-                        <span class="hidden-mobile">Debian10升级安全更新</span>
+                      <a href="/2024/11/10/YAY-%E6%9C%80%E5%BC%BA%E5%A4%A7%E7%9A%84AUR%E5%8A%A9%E6%89%8B/">
+                        <span class="hidden-mobile">YAY-最强大的AUR助手</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
