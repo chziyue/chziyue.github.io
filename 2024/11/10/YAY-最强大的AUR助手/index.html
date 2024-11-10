@@ -16,11 +16,11 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="在当今复杂的网络环境中,保持操作系统的安全性至关重要。Debian 作为一个稳定可靠的 Linux 发行版,定期发布安全更新来修复潜在的漏洞和问题。此文章将帮助 Debian 10 (代号 &#34;Buster&#34;) 用户了解如何正确地进行安全更新,以确保系统始终处于最新、最安全的状态。">
+  <meta name="description" content="YAY（Yet Another Yogurt）是 Arch Linux 最受欢迎的 AUR（Arch User Repository）助手工具。它使用 Go 语言开发，完美继承了 pacman 的操作语法，同时提供了更友好的界面和更强大的功能。">
   <meta name="author" content="Midnight">
   <meta name="keywords" content="">
   
-  <title>Debian10升级安全更新 - MIDNIGHT&#39;S BLOG</title>
+  <title>YAY-最强大的AUR助手 - MIDNIGHT&#39;S BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Debian10升级安全更新">
+            <span class="h2" id="subtitle" title="YAY-最强大的AUR助手">
               
             </span>
 
@@ -175,8 +175,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-10-13 21:03" pubdate>
-        2024年10月13日 晚上
+      <time datetime="2024-11-10 15:55" pubdate>
+        2024年11月10日 下午
       </time>
     </span>
   
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      291 字
+      842 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      9
        分钟
     </span>
   
@@ -235,27 +235,40 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Debian10升级安全更新</h1>
+            <h1 style="display: none">YAY-最强大的AUR助手</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2024年10月13日 晚上
+                  本文最后更新于：2024年11月10日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在当今复杂的网络环境中,保持操作系统的安全性至关重要。Debian 作为一个稳定可靠的 Linux 发行版,定期发布安全更新来修复潜在的漏洞和问题。此文章将帮助 Debian 10 (代号 “Buster”) 用户了解如何正确地进行安全更新,以确保系统始终处于最新、最安全的状态。</p>
-<p>以下步骤将介绍完成更新源的配置、检查可用更新以及安装安全补丁的过程。通过遵循这些说明,可以有效地管理系统安全,降低被攻击的风险。</p>
-<h3 id="升级方法"><a href="#升级方法" class="headerlink" title="升级方法"></a>升级方法</h3><p>首先，确保 /etc/apt/sources.list 文件包含正确的安全更新源。编辑该文件：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">nano <span class="hljs-regexp">/etc/</span>apt/sources.list<br></code></pre></td></tr></table></figure>
-<p>确保有以下行（如果没有，请添加）：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//</span>security.debian.org<span class="hljs-regexp">/debian-security buster/u</span>pdates main<br>deb-src http:<span class="hljs-regexp">//</span>security.debian.org<span class="hljs-regexp">/debian-security buster/u</span>pdates main<br></code></pre></td></tr></table></figure>
-<p>更新包列表：</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure>
-<p>列出可升级的包（包括安全更新）：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> --just-<span class="hljs-builtin-name">print</span><span class="hljs-built_in"> upgrade </span>| grep -i security<br></code></pre></td></tr></table></figure>
-<p>安装安全更新：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">apt-get upgrade <span class="hljs-constructor">$(<span class="hljs-params">apt</span>-<span class="hljs-params">get</span> --<span class="hljs-params">just</span>-<span class="hljs-params">print</span> <span class="hljs-params">upgrade</span> | <span class="hljs-params">grep</span> -<span class="hljs-params">i</span> <span class="hljs-params">security</span> | <span class="hljs-params">awk</span> -F&#x27; &#x27; &#x27;&#123;<span class="hljs-params">print</span> $2&#125;&#x27; | <span class="hljs-params">tr</span> &#x27;\<span class="hljs-params">n</span>&#x27; &#x27; &#x27;)</span><br></code></pre></td></tr></table></figure>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>YAY（Yet Another Yogurt）是 Arch Linux 最受欢迎的 AUR（Arch User Repository）助手工具。它使用 Go 语言开发，完美继承了 pacman 的操作语法，同时提供了更友好的界面和更强大的功能。</p>
+<p>作为一个 AUR 助手，YAY 不仅可以管理官方仓库的软件包，还能轻松处理 AUR 仓库中的软件包。它的特点是：自动处理依赖关系、支持软件包搜索、提供交互式安装界面，并且在安装过程中会显示 PKGBUILD 内容以确保安全性。</p>
+<p>对于 Arch Linux 用户来说，YAY 是管理系统软件包的最佳选择之一。让我们来详细了解它的使用方法：</p>
+<h3 id="1-基本功能"><a href="#1-基本功能" class="headerlink" title="1. 基本功能"></a>1. 基本功能</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 安装 yay</span><br><span class="hljs-attribute">sudo</span> pacman -S yay<br><br><span class="hljs-comment"># 基础用法</span><br>yay -S 软件名     <span class="hljs-comment"># 安装软件</span><br>yay -Ss 关键词    <span class="hljs-comment"># 搜索软件</span><br>yay -Syu         <span class="hljs-comment"># 更新系统和 AUR 包</span><br>yay -R 软件名     <span class="hljs-comment"># 删除软件</span><br>yay -Yc          <span class="hljs-comment"># 清理不需要的依赖</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-高级功能"><a href="#2-高级功能" class="headerlink" title="2. 高级功能"></a>2. 高级功能</h3><p>搜索和查看：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">yay</span> -Si 软件名    <span class="hljs-comment"># 查看软件详细信息</span><br>yay -Ps          <span class="hljs-comment"># 显示系统统计信息</span><br>yay -G 软件名     <span class="hljs-comment"># 下载 PKGBUILD</span><br></code></pre></td></tr></table></figure>
+<p>维护相关：</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">yay</span> -<span class="hljs-string">Scc</span>         <span class="hljs-comment"># 清理缓存</span><br><span class="hljs-string">yay</span> -<span class="hljs-string">Y</span> <span class="hljs-built_in">--gendb</span>   <span class="hljs-comment"># 生成开发包数据库</span><br><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span>       <span class="hljs-comment"># 保存当前设置为默认值</span><br></code></pre></td></tr></table></figure>
+<h3 id="3-常用参数组合"><a href="#3-常用参数组合" class="headerlink" title="3. 常用参数组合"></a>3. 常用参数组合</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta"># 仅更新 AUR 包</span><br>yay -Sua<br><br><span class="hljs-meta"># 搜索并显示包信息</span><br>yay -Ss 软件名 --sortby popularity<br><br><span class="hljs-meta"># 清理系统</span><br>yay -Yc &amp;&amp; yay -Scc<br></code></pre></td></tr></table></figure>
+<h3 id="4-YAY-的优点"><a href="#4-YAY-的优点" class="headerlink" title="4. YAY 的优点"></a>4. YAY 的优点</h3><p>易用性<br>语法与 pacman 类似<br>自动处理依赖关系<br>支持搜索过滤<br>功能强大<br>支持 AUR 投票<br>可以显示包的评论<br>支持开发包管理<br>安全性<br>安装前显示 PKGBUILD<br>可以检查包的完整性<br>支持 GPG 签名验证</p>
+<h3 id="5-实用技巧"><a href="#5-实用技巧" class="headerlink" title="5. 实用技巧"></a>5. 实用技巧</h3><p>配置设置</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span> <span class="hljs-built_in">--answerdiff</span> <span class="hljs-string">None</span>    <span class="hljs-comment"># 跳过差异对比</span><br><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span> <span class="hljs-built_in">--nocleanmenu</span>       <span class="hljs-comment"># 跳过清理提示</span><br><span class="hljs-string">yay</span> <span class="hljs-built_in">--save</span> <span class="hljs-built_in">--answeredit</span> <span class="hljs-string">None</span>   <span class="hljs-comment"># 跳过编辑提示</span><br></code></pre></td></tr></table></figure>
+<p>搜索优化</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-comment"># 按受欢迎程度排序</span><br>yay -Ss 软件名 <span class="hljs-comment">--sortby popularity</span><br><br><span class="hljs-comment"># 只搜索 AUR</span><br>yay -Ss 软件名 <span class="hljs-comment">--aur</span><br></code></pre></td></tr></table></figure>
+<p>系统维护</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-comment"># 完整系统更新</span><br><span class="hljs-string">yay</span> -<span class="hljs-string">Syu</span> <span class="hljs-built_in">--devel</span> <span class="hljs-built_in">--timeupdate</span><br><br><span class="hljs-comment"># 清理系统</span><br><span class="hljs-string">yay</span> -<span class="hljs-string">Yc</span> &amp;&amp; <span class="hljs-string">yay</span> -<span class="hljs-string">Scc</span><br></code></pre></td></tr></table></figure>
+<h3 id="6-注意事项"><a href="#6-注意事项" class="headerlink" title="6. 注意事项"></a>6. 注意事项</h3><p>安全建议<br>安装前查看 PKGBUILD<br>检查包的评论和投票<br>优先使用官方仓库<br>使用提示<br>定期更新系统<br>及时清理缓存<br>保持 AUR 包最新<br>故障排除</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta"># 重建数据库</span><br>yay -Y --gendb<br><br><span class="hljs-meta"># 强制刷新</span><br>yay -Syy<br><br><span class="hljs-meta"># 修复损坏的包</span><br>yay -S 软件名 --rebuildall<br></code></pre></td></tr></table></figure>
+<h3 id="7-最佳实践"><a href="#7-最佳实践" class="headerlink" title="7. 最佳实践"></a>7. 最佳实践</h3><p>定期维护：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment"># 每周执行一次</span><br>yay -Syu              <span class="hljs-comment"># 更新系统</span><br>yay -Yc               <span class="hljs-comment"># 清理依赖</span><br>yay -<span class="hljs-keyword">Scc </span>             <span class="hljs-comment"># 清理缓存</span><br></code></pre></td></tr></table></figure>
+<p>安装新软件：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">yay</span> -Ss 软件名        <span class="hljs-comment"># 先搜索</span><br>yay -Si 软件名        <span class="hljs-comment"># 查看详情</span><br>yay -S 软件名         <span class="hljs-comment"># 确认无误后安装</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>YAY 作为 Arch Linux 生态系统中的重要工具，极大地简化了包管理的复杂性。它不仅保持了 pacman 的强大功能，还为用户提供了更友好的界面和更丰富的特性。通过本文介绍的各种命令和技巧，相信你已经掌握了 YAY 的基本使用方法。</p>
+<p>在使用 AUR 时要特别注意安全性，养成查看 PKGBUILD 的好习惯。同时，定期更新和维护系统也是使用 Arch Linux 的重要原则。随着使用经验的积累，你会发现 YAY 是一个不可或缺的得力助手。</p>
 
             </div>
             <hr>
@@ -290,18 +303,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/10/YAY-%E6%9C%80%E5%BC%BA%E5%A4%A7%E7%9A%84AUR%E5%8A%A9%E6%89%8B/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">YAY-最强大的AUR助手</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/13/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/">
-                        <span class="hidden-mobile">UFW防火墙工具配置和使用</span>
+                      <a href="/2024/10/13/Debian10%E5%8D%87%E7%BA%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0/">
+                        <span class="hidden-mobile">Debian10升级安全更新</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
