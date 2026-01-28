@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      797 字
+      788 字
     </span>
   
 
@@ -248,7 +248,7 @@
 <p>Fail2ban就是这样一个强大而灵活的安全工具。它能够监控系统日志,自动检测可疑的登录尝试,并在发现攻击行为时采取相应的防御措施,如暂时封禁攻击源IP地址。这不仅能有效减少服务器遭受的攻击压力,还能大大提高系统的安全性。</p>
 <p>本文将详细介绍Fail2ban的安装、配置和使用方法,帮助你更好地保护Linux服务器免受SSH暴力破解的威胁。无论是经验丰富的系统管理员,还是刚开始接触服务器安全的新手,相信这篇教程都能为你提供有价值的信息和实用的操作指南。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">apt</span> install fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Fail2Ban安装包中含有一个名为jail.conf的默认配置文件。 升级Fail2Ban时，该文件将被覆盖。<br>解决方案是将jail.conf文件复制到一个名为jail.local的文件中。 我们将定制的的配置更改存入jail.local中。这个文件在升级过程中将保持不变。 Fail2Ban启动时会优先读取jail.local作为配置文件<br>进入包目录</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Fail2Ban安装包中含有一个名为jail.conf的默认配置文件。 升级Fail2Ban时，该文件将被覆盖。<br>解决方案是创建一个jail.local文件。 我们将定制的的配置更改存入jail.local中。这个文件在升级过程中将保持不变。 Fail2Ban启动时会优先读取jail.local作为配置文件<br>进入包目录</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/etc/</span>fail2ban/<br></code></pre></td></tr></table></figure>
 <p>创建配置文件</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">nano jail.<span class="hljs-keyword">local</span><br></code></pre></td></tr></table></figure>
