@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本篇介绍常见 Linux 操作系统的安装包管理工具，主要介绍其使用命令。包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你系统中使用的代码是经过审查的，并且软件的安装版本已经得到了开发人员和包维护人员的认可。">
+  <meta name="author" content="Midnight">
+  <meta name="keywords" content="">
+  
+  <title>Linux各发行版包管理工具使用说明 - MIDNIGHT&#39;S BLOG</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chziyue.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":50,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MIDNIGHT'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux各发行版包管理工具使用说明">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-05-07 00:51" pubdate>
+        2023年5月7日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux各发行版包管理工具使用说明</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2023年5月10日 凌晨
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇介绍常见 Linux 操作系统的安装包管理工具，主要介绍其使用命令。<br>包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你系统中使用的代码是经过审查的，并且软件的安装版本已经得到了开发人员和包维护人员的认可。</p>
+<h4 id="各发行版对应的包管理工具"><a href="#各发行版对应的包管理工具" class="headerlink" title="各发行版对应的包管理工具"></a>各发行版对应的包管理工具</h4><table>
+<thead>
+<tr>
+<th align="center">发行版名称</th>
+<th align="center">系列</th>
+<th align="center">包管理工具</th>
+<th align="center">cat /etc/os-release</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Centos</td>
+<td align="center">Red Hat</td>
+<td align="center">yum</td>
+<td align="center">NAME=”CentOS Linux”</td>
+</tr>
+<tr>
+<td align="center">Debian</td>
+<td align="center">Debian</td>
+<td align="center">apt-get</td>
+<td align="center">NAME=”Debian GNU/Linux”</td>
+</tr>
+<tr>
+<td align="center">Ubuntu</td>
+<td align="center">Debian</td>
+<td align="center">apt-get</td>
+<td align="center">NAME=”Ubuntu”</td>
+</tr>
+<tr>
+<td align="center">fedora</td>
+<td align="center">Red Hat</td>
+<td align="center">yum</td>
+<td align="center">NAME=Fedora</td>
+</tr>
+<tr>
+<td align="center">OpenSUSE</td>
+<td align="center">Red Hat</td>
+<td align="center">zypper</td>
+<td align="center">NAME=”openSUSE Leap”</td>
+</tr>
+<tr>
+<td align="center">amazonlinux</td>
+<td align="center">Red Hat</td>
+<td align="center">yum</td>
+<td align="center">NAME=”Amazon Linux”</td>
+</tr>
+<tr>
+<td align="center">oraclelinux</td>
+<td align="center">Red Hat</td>
+<td align="center">yum</td>
+<td align="center">NAME=”Oracle Linux Server”</td>
+</tr>
+<tr>
+<td align="center">Arch</td>
+<td align="center">Red Hat</td>
+<td align="center">pacman</td>
+<td align="center">NAME=”Arch Linux”</td>
+</tr>
+<tr>
+<td align="center">Mageia</td>
+<td align="center">Red Hat</td>
+<td align="center">dnf</td>
+<td align="center">NAME=”Mageia”</td>
+</tr>
+<tr>
+<td align="center">EulerOS</td>
+<td align="center">Red Hat</td>
+<td align="center">yum</td>
+<td align="center">NAME=”EulerOS”</td>
+</tr>
+<tr>
+<td align="center">Kali</td>
+<td align="center">Debian</td>
+<td align="center">apt-get</td>
+<td align="center">NAME=”Kali GNU/Linux”</td>
+</tr>
+<tr>
+<td align="center">Alpine</td>
+<td align="center">Red Hat</td>
+<td align="center">apk</td>
+<td align="center">NAME=”Alpine Linux”</td>
+</tr>
+<tr>
+<td align="center">Photon</td>
+<td align="center">Red Hat</td>
+<td align="center">yum</td>
+<td align="center">NAME=”VMware Photon OS”</td>
+</tr>
+<tr>
+<td align="center">Clear</td>
+<td align="center">Red Hat</td>
+<td align="center">swupd</td>
+<td align="center">NAME=”Clear Linux OS”</td>
+</tr>
+<tr>
+<td align="center">Mint</td>
+<td align="center">Debian</td>
+<td align="center">apt</td>
+<td align="center">NAME=”Linux Mint”</td>
+</tr>
+<tr>
+<td align="center">EndeavourOS</td>
+<td align="center">Arch</td>
+<td align="center">pacman</td>
+<td align="center">NAME=”EndeavourOS”</td>
+</tr>
+</tbody></table>
+<h4 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /etc/os-release<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/version<br></code></pre></td></tr></table></figure>
+<h4 id="yum-包管理工具"><a href="#yum-包管理工具" class="headerlink" title="yum 包管理工具"></a>yum 包管理工具</h4><p>查找软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum search<br></code></pre></td></tr></table></figure>
+<p>列出所有可安装的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum list<br></code></pre></td></tr></table></figure>
+<p>列出所有可更新的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum list updates<br></code></pre></td></tr></table></figure>
+<p>列出所有已安装的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum list installed<br></code></pre></td></tr></table></figure>
+<p>列出所有已安装但不在 yum Repository 內的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum list extras<br></code></pre></td></tr></table></figure>
+<p>列出所指定软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum list<br></code></pre></td></tr></table></figure>
+<p>使用 yum 获取软件包信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum info<br></code></pre></td></tr></table></figure>
+<p>列出所有软件包的信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum info<br></code></pre></td></tr></table></figure>
+<p>列出所有可更新的软件包信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum info updates<br></code></pre></td></tr></table></figure>
+<p>列出所有已安裝的软件包信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum info installed<br></code></pre></td></tr></table></figure>
+<p>列出所有已安裝但不在 yum Repository 內的软件包信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum info extras<br></code></pre></td></tr></table></figure>
+<p>列出软件包提供哪些文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum provides<br></code></pre></td></tr></table></figure>
+<h4 id="dnf-包管理工具"><a href="#dnf-包管理工具" class="headerlink" title="dnf 包管理工具"></a>dnf 包管理工具</h4><p>安装 DNF 包管理器<br>1、为了安装 DNF ，必须先安装并启用 epel-release 依赖。<br>在系统中执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install epel-release<br></code></pre></td></tr></table></figure>
+<p>2、使用 epel-release 依赖中的 YUM 命令来安装 DNF 包。在系统中执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install dnf<br></code></pre></td></tr></table></figure>
+<p>查看 DNF 包管理器版本<br>用处：该命令用于查看安装在系统中的 DNF 包管理器的版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf –version<br></code></pre></td></tr></table></figure>
+<p>查看系统中可用的 DNF 软件库<br>用处：该命令用于显示系统中可用的 DNF 软件库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf repolist<br></code></pre></td></tr></table></figure>
+<p>查看系统中可用和不可用的所有的 DNF 软件库<br>用处：该命令用于显示系统中可用和不可用的所有的 DNF 软件库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf repolist all<br></code></pre></td></tr></table></figure>
+<p>列出所有 RPM 包<br>用处：该命令用于列出用户系统上的所有来自软件库的可用软件包和所有已经安装在系统上的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf list<br></code></pre></td></tr></table></figure>
+<p>列出所有安装了的 RPM 包<br>用处：该命令用于列出所有安装了的 RPM 包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf list installed<br></code></pre></td></tr></table></figure>
+<p>列出所有可供安装的 RPM 包<br>用处：该命令用于列出所有可用软件库的可供安装的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf list available<br></code></pre></td></tr></table></figure>
+<p>搜索软件库中的 RPM 包<br>用处：当你不知道你想要安装的软件的准确名称时，可以用该命令来搜索软件包。你需要在”search”参数后面键入软件的部分名称来搜索。（在本例中我们使用”nano”）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf search nano<br></code></pre></td></tr></table></figure>
+<p>查找某一文件的提供者<br>用处：当你想要查看是哪个软件包提供了系统中的某一文件时，你可以使用这条命令。（在本例中，我们将查找”/bin/bash”这个文件的提供者）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf provides /bin/bash<br></code></pre></td></tr></table></figure>
+<p>查看软件包详情<br>用处：当你想在安装某一个软件包之前查看它的详细信息时，这条命令可以帮到你。（在本例中，我们将查看”nano”这一软件包的详细信息）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf info nano<br></code></pre></td></tr></table></figure>
+<p>安装软件包<br>用处：使用该命令，系统将会自动安装对应的软件及其所需的所有依赖（在本例中，我们将用该命令安装nano软件）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf install nano<br></code></pre></td></tr></table></figure>
+<p>升级软件包<br>用处：该命令用于升级制定软件包（在本例中，我们将用命令升级”systemd”这一软件包）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf update systemd<br></code></pre></td></tr></table></figure>
+<p>检查系统软件包的更新<br>用处：该命令用于检查系统中所有软件包的更新</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf check-update<br></code></pre></td></tr></table></figure>
+<p>升级所有系统软件包<br>用处：该命令用于升级系统中所有有可用升级的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf update 或 dnf upgrade<br></code></pre></td></tr></table></figure>
+<p>删除软件包<br>用处：删除系统中指定的软件包（在本例中我们将使用命令删除”nano”这一软件包）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf remove nano 或 dnf erase nano<br></code></pre></td></tr></table></figure>
+<p>删除无用孤立的软件包<br>用处：当没有软件再依赖它们时，某一些用于解决特定软件依赖的软件包将会变得没有存在的意义，该命令就是用来自动移除这些没用的孤立软件包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf autoremove<br></code></pre></td></tr></table></figure>
+<p>删除缓存的无用软件包<br>用处：在使用 DNF 的过程中，会因为各种原因在系统中残留各种过时的文件和未完成的编译工程。我们可以使用该命令来删除这些没用的垃圾文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf clean all<br></code></pre></td></tr></table></figure>
+<p>获取有关某条命令的使用帮助<br>用处：该命令用于获取有关某条命令的使用帮助（包括可用于该命令的参数和该命令的用途说明）（本例中我们将使用命令获取有关命令”clean”的使用帮助）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf help clean<br></code></pre></td></tr></table></figure>
+<p>查看所有的 DNF 命令及其用途<br>用处：该命令用于列出所有的 DNF 命令及其用途</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf help<br></code></pre></td></tr></table></figure>
+<p>查看 DNF 命令的执行历史<br>用处：您可以使用该命令来查看系统上 DNF 命令的执行历史。通过这个手段您可以知道在自您使用 DNF 开始有什么软件被安装和卸载。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf history<br></code></pre></td></tr></table></figure>
+<p>查看所有的软件包组<br>用处：该命令用于列出所有的软件包组</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf grouplist<br></code></pre></td></tr></table></figure>
+<p>安装一个软件包组<br>用处：该命令用于安装一个软件包组（本例中，我们将用命令安装”Educational Software”这个软件包组）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf groupinstall &#x27;Educational Software&#x27;<br></code></pre></td></tr></table></figure>
+<p>升级一个软件包组中的软件包<br>用处：该命令用于升级一个软件包组中的软件包（本例中，我们将用命令升级”Educational Software”这个软件包组中的软件）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf groupupdate &#x27;Educational Software&#x27;<br></code></pre></td></tr></table></figure>
+<p>删除一个软件包组<br>用处：该命令用于删除一个软件包组（本例中，我们将用命令删除”Educational Software”这个软件包组）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf groupremove &#x27;Educational Software&#x27;<br></code></pre></td></tr></table></figure>
+<p>从特定的软件包库安装特定的软件<br>用处：该命令用于从特定的软件包库安装特定的软件（本例中我们将使用命令从软件包库 epel 中安装 phpmyadmin 软件包）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf –enablerepo=epel install phpmyadmin<br></code></pre></td></tr></table></figure>
+<p>更新软件包到最新的稳定发行版<br>用处：该命令可以通过所有可用的软件源将已经安装的所有软件包更新到最新的稳定发行版</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf distro-sync<br></code></pre></td></tr></table></figure>
+<p>重新安装特定软件包<br>用处：该命令用于重新安装特定软件包（本例中，我们将使用命令重新安装”nano”这个软件包）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf reinstall nano<br></code></pre></td></tr></table></figure>
+<p>回滚某个特定软件的版本<br>用处：该命令用于降低特定软件包的版本（如果可能的话）（本例中，我们将使用命令降低”acpid”这个软件包的版本）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dnf downgrade acpid<br></code></pre></td></tr></table></figure>
+<h4 id="apt-包管理工具"><a href="#apt-包管理工具" class="headerlink" title="apt 包管理工具"></a>apt 包管理工具</h4><p>搜索包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-cache search<br></code></pre></td></tr></table></figure>
+<p>获取包的相关信息，如说明、大小、版本等</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-cache show<br></code></pre></td></tr></table></figure>
+<p>安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get install<br></code></pre></td></tr></table></figure>
+<p>重新安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get install package --reinstall<br></code></pre></td></tr></table></figure>
+<p>删除包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get remove<br></code></pre></td></tr></table></figure>
+<p>删除包，包括删除配置文件等</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get remove --purge<br></code></pre></td></tr></table></figure>
+<p>package 删除包及其依赖的软件包+配置文件等（只对6.10有效）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get autoremove --purge<br></code></pre></td></tr></table></figure>
+<p>更新源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get update<br></code></pre></td></tr></table></figure>
+<p>更新已安装的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get upgrade<br></code></pre></td></tr></table></figure>
+<p>升级系统</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get dist-upgrade<br></code></pre></td></tr></table></figure>
+<p>使用 dselect 升级</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get dselect-upgrade<br></code></pre></td></tr></table></figure>
+<p>了解使用依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-cache depends<br></code></pre></td></tr></table></figure>
+<p>了解某个具体的依赖,查看该包被哪些包依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-cache rdepends<br></code></pre></td></tr></table></figure>
+<p>安装相关的编译环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get build-dep<br></code></pre></td></tr></table></figure>
+<p>下载该包的源代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get source<br></code></pre></td></tr></table></figure>
+<p>清理下载文件的存档 &amp;&amp; 只清理过时的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get clean &amp;&amp; apt-get autoclean<br></code></pre></td></tr></table></figure>
+<p>检查是否有损坏的依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-get check<br></code></pre></td></tr></table></figure>
+<p>查找filename属于哪个软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dpkg -S filename<br></code></pre></td></tr></table></figure>
+<p>查找filename属于哪个软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-file search filename<br></code></pre></td></tr></table></figure>
+<p>列出软件包的内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-file list packagename<br></code></pre></td></tr></table></figure>
+<p>更新apt-file的数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apt-file update<br></code></pre></td></tr></table></figure>
+<h4 id="zypper-包管理工具"><a href="#zypper-包管理工具" class="headerlink" title="zypper 包管理工具"></a>zypper 包管理工具</h4><p>安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper install<br></code></pre></td></tr></table></figure>
+<p>安装包源码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper source-install<br></code></pre></td></tr></table></figure>
+<p>更新包某个包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper update<br></code></pre></td></tr></table></figure>
+<p>更新所有包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper update<br></code></pre></td></tr></table></figure>
+<p>删除包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper remove<br></code></pre></td></tr></table></figure>
+<p>查找包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper search<br></code></pre></td></tr></table></figure>
+<p>查看包信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper info<br></code></pre></td></tr></table></figure>
+<p>查看所有可打的补丁</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper patches<br></code></pre></td></tr></table></figure>
+<p>安装指定补丁</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper patch<br></code></pre></td></tr></table></figure>
+<p>锁包 不能被移除或升级</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper al<br></code></pre></td></tr></table></figure>
+<p>查看所有被锁的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper ll<br></code></pre></td></tr></table></figure>
+<p>解锁包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zypper rl<br></code></pre></td></tr></table></figure>
+<h4 id="pacman-包管理工具"><a href="#pacman-包管理工具" class="headerlink" title="pacman 包管理工具"></a>pacman 包管理工具</h4><p>安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -S<br></code></pre></td></tr></table></figure>
+<p>删除单个包 保留全部已安装的依赖关系</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -R<br></code></pre></td></tr></table></figure>
+<p>删除指定的包 及所有没有被其他已安装关键包使用的依赖关系</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Rs<br></code></pre></td></tr></table></figure>
+<p>缺省的，pacman会备份被删除程序的配置文件，将它们加上*.pacsave扩展名。如果你在删除软件包时要同时删除相应的配置文件（这种行为在基于Debian的系统中称为清除purging），你可是使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Rn<br></code></pre></td></tr></table></figure>
+<p>当然，它也可以加上-s参数来删除当前无用的依赖。这样的话，真正删除一个软件包、它的配置文件以及所有不再需要的依赖的命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Rsn<br></code></pre></td></tr></table></figure>
+<p>Pacman能够只用一个指令来升级系统中所有已安装的包。升级的时间取决于你的系统有多新</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Su<br></code></pre></td></tr></table></figure>
+<p>当然，最好做法的是将升级系统和同步仓库数据合成为一条指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Syu<br></code></pre></td></tr></table></figure>
+<p>搜索包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Ss<br></code></pre></td></tr></table></figure>
+<p>查询已安装的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Qs<br></code></pre></td></tr></table></figure>
+<p>包详细信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Si<br></code></pre></td></tr></table></figure>
+<p>获取已安装软件包所包含文件的列表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Ql<br></code></pre></td></tr></table></figure>
+<p>你也可以通过查询数据库获知目前你的文件系统中某个文件是属于哪个软件包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Qo /path/to/a/file<br></code></pre></td></tr></table></figure>
+<p>要罗列所有不再作为依赖的软件包(孤立orphans)：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Qdt<br></code></pre></td></tr></table></figure>
+<p>Pacman使用-Q参数来查询本地软件包数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Q<br></code></pre></td></tr></table></figure>
+<p>使用-S参数来查询远程同步的数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -S<br></code></pre></td></tr></table></figure>
+<p>下载包而不安装它：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Sw<br></code></pre></td></tr></table></figure>
+<p>安装一个’本地’包（不从源里）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -U /path/to/package/package_name-version.pkg.tar.gz<br></code></pre></td></tr></table></figure>
+<p>安装一个’远程’包（不从源里）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -U http://url/package_name-version.pkg.tar.gz<br></code></pre></td></tr></table></figure>
+<p>清理当前未被安装软件包的缓存(/var/cache/pacman/pkg):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Sc<br></code></pre></td></tr></table></figure>
+<p>完全清理包缓存：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pacman -Scc<br></code></pre></td></tr></table></figure>
+<h4 id="apk-包管理工具"><a href="#apk-包管理工具" class="headerlink" title="apk 包管理工具"></a>apk 包管理工具</h4><p>源文件位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">/etc/apk/repositories<br></code></pre></td></tr></table></figure>
+<p>配置阿里源镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed -i &#x27;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&#x27; /etc/apk/repositories<br></code></pre></td></tr></table></figure>
+<p>配置科大源镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed -i &#x27;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#x27; /etc/apk/repositories<br></code></pre></td></tr></table></figure>
+<p>安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk add<br></code></pre></td></tr></table></figure>
+<p>卸载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk del<br></code></pre></td></tr></table></figure>
+<p>更新包列表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk update<br></code></pre></td></tr></table></figure>
+<p>升级所有已安装的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk upgrade<br></code></pre></td></tr></table></figure>
+<p>搜索</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk search<br></code></pre></td></tr></table></figure>
+<p>列出所有已安装的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk info<br></code></pre></td></tr></table></figure>
+<p>列出某个包的详情</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">apk info git<br></code></pre></td></tr></table></figure>
+<h4 id="swupd-包管理工具"><a href="#swupd-包管理工具" class="headerlink" title="swupd 包管理工具"></a>swupd 包管理工具</h4><p>搜索包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">swupd search<br></code></pre></td></tr></table></figure>
+<p>包信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">swupd bundle-info<br></code></pre></td></tr></table></figure>
+<p>安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">swupd bundle-add<br></code></pre></td></tr></table></figure>
+<p>卸载包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">swupd bundle-remove<br></code></pre></td></tr></table></figure>
+<p>列出已安装的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">swupd bundle-list |grep<br></code></pre></td></tr></table></figure>
+<p>禁用和启用自动更新</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs smali">sudo swupd autoupdate   //验证当前的自动更新设置,enable就是默认开启自动更新<br>sudo swupd autoupdate --disable  //禁用自动更新<br>sudo swupd<span class="hljs-built_in"> check-update </span> //手动检查更新<br>sudo swupd autoupdate --enable  //启用自动更新<br></code></pre></td></tr></table></figure>
+<p>其他</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">swupd info  <span class="hljs-regexp">//</span>返回当前安装的版本和更新服务器。<br>swupd update  <span class="hljs-regexp">//</span>如果未使用参数，则更新到特定版本或最新版本<br>swupd –help  <span class="hljs-regexp">//</span>列出其他 swupd 命令。<br>man swupd  <span class="hljs-regexp">//</span>打开 swupd 手册页。<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">技术文档</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章仅供学习和交流所用，未经作者允许，均禁止转载！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/11/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git常用命令收集整理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/30/Linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%BB%84%E5%BB%BARAID/">
+                        <span class="hidden-mobile">Linux系统下组建RAID</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script> <script>LA.init({id: "JR5MduEn518Vyd4G",ck: "JR5MduEn518Vyd4G"})</script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Copyright © 2017 - 2026  <a href="https://chziyue.github.io/" target="_blank"><span>MIDNIGHT</span></a> All Rights Reserved. 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

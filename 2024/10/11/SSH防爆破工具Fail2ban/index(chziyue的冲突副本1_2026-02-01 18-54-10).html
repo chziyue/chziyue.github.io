@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="在当今的网络环境中,服务器安全已成为一个不容忽视的问题。SSH（Secure Shell）作为远程管理服务器的重要工具,常常成为黑客攻击的首选目标。面对持续不断的暴力破解尝试,系统管理员需要一个可靠的防御工具来保护服务器安全。">
+  <meta name="author" content="Midnight">
+  <meta name="keywords" content="">
+  
+  <title>SSH防爆破工具Fail2ban - MIDNIGHT&#39;S BLOG</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chziyue.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":50,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>MIDNIGHT'S BLOG</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SSH防爆破工具Fail2ban">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-10-11 19:56" pubdate>
+        2024年10月11日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      809 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SSH防爆破工具Fail2ban</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2026年1月28日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在当今的网络环境中,服务器安全已成为一个不容忽视的问题。SSH（Secure Shell）作为远程管理服务器的重要工具,常常成为黑客攻击的首选目标。面对持续不断的暴力破解尝试,系统管理员需要一个可靠的防御工具来保护服务器安全。</p>
+<p>Fail2ban就是这样一个强大而灵活的安全工具。它能够监控系统日志,自动检测可疑的登录尝试,并在发现攻击行为时采取相应的防御措施,如暂时封禁攻击源IP地址。这不仅能有效减少服务器遭受的攻击压力,还能大大提高系统的安全性。</p>
+<p>本文将详细介绍Fail2ban的安装、配置和使用方法,帮助你更好地保护Linux服务器免受SSH暴力破解的威胁。无论是经验丰富的系统管理员,还是刚开始接触服务器安全的新手,相信这篇教程都能为你提供有价值的信息和实用的操作指南。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">apt</span> install fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Fail2Ban安装包中含有一个名为jail.conf的默认配置文件。 升级Fail2Ban时，该文件将被覆盖。<br>解决方案是创建一个jail.local文件。 我们将定制的的配置更改存入jail.local中。这个文件在升级过程中将保持不变。 Fail2Ban启动时会优先读取jail.local作为配置文件<br>进入包目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/etc/</span>fail2ban/<br></code></pre></td></tr></table></figure>
+<p>创建配置文件</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">nano jail.<span class="hljs-keyword">local</span><br></code></pre></td></tr></table></figure>
+<p>添加配置</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[DEFAULT]</span><br><span class="hljs-attr">ignoreip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>/<span class="hljs-number">8</span> ::<span class="hljs-number">1</span> <span class="hljs-comment"># 防止本机被封</span><br><span class="hljs-attr">bantime</span> = <span class="hljs-number">24</span>h      <span class="hljs-comment"># 封禁24小时</span><br><span class="hljs-attr">findtime</span> = <span class="hljs-number">24</span>h     <span class="hljs-comment"># 在24小时内累计失败</span><br><span class="hljs-attr">maxretry</span> = <span class="hljs-number">3</span>       <span class="hljs-comment"># 允许3次失败</span><br><br><span class="hljs-section">[sshd]</span><br><span class="hljs-attr">enabled</span> = <span class="hljs-literal">true</span>     <span class="hljs-comment"># 启动对SSH服务的暴力破解防护</span><br></code></pre></td></tr></table></figure>
+<p>配置参数说明:<br>指定哪些IP/域名等可以忽略fail2ban的防御,空格分割</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">ignoreip</span> = <span class="hljs-number">127.0.0.1</span>/<span class="hljs-number">8</span> ::<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>封禁该IP的时间,m=分,只填数字按秒算</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">bantime</span>  = <span class="hljs-number">10</span>m<br></code></pre></td></tr></table></figure>
+<p>检测密码输入错误的间隔时间,结合maxretry使用,10分钟内错误3次即封禁</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">findtime</span>  = <span class="hljs-number">10</span>m<br></code></pre></td></tr></table></figure>
+<p>检测密码输入错误次数,结合findtime 使用,60秒内错误3次即封禁</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">maxretry</span> = <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<p>[sshd]下面添加</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">enabled</span> = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<p>启动fail2ban</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">systemctl</span> restart fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
+<p>查看启动状态,显示Active: active (running)说明已成功启动</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">systemctl</span> status fail<span class="hljs-number">2</span>ban<br></code></pre></td></tr></table></figure>
+<p>查看当前被封IP数量</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">fail2ban-client status sshd <span class="hljs-string">| grep &quot;</span>Currently banned<span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
+<p>导出完整IP列表</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">iptables -L f2b-sshd -n | awk <span class="hljs-string">&#x27;/REJECT/ &#123;print  $ 4&#125;&#x27;</span> &gt; <span class="hljs-regexp">/tmp/</span>banned_ips.txt<br></code></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>查看已启用的模块</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">fail2ban-<span class="hljs-keyword">client</span> status<br></code></pre></td></tr></table></figure>
+<p>显示有一个sshd已启用</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">Status</span><br>|- <span class="hljs-keyword">Number</span> of jail:      <span class="hljs-number">1</span><br>`- Jail list:   sshd<br></code></pre></td></tr></table></figure>
+<p>显示sshd详细信息</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">fail2ban-<span class="hljs-keyword">client</span> status sshd<br></code></pre></td></tr></table></figure>
+<p>显示失败次数和封禁情况</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">Status for the jail: sshd<br>|<span class="hljs-string">- Filter</span><br><span class="hljs-string"></span>|<span class="hljs-string">  </span>|<span class="hljs-string">- Currently failed: 0</span><br><span class="hljs-string"></span>|<span class="hljs-string">  </span>|<span class="hljs-string">- Total failed:     0</span><br><span class="hljs-string"></span>|<span class="hljs-string">  `- File list:        /var/log/auth.log</span><br><span class="hljs-string">`- Actions</span><br><span class="hljs-string">   </span>|<span class="hljs-string">- Currently banned: 0</span><br><span class="hljs-string">   </span>|<span class="hljs-string">- Total banned:     0</span><br><span class="hljs-string">   `- Banned IP list:</span><br></code></pre></td></tr></table></figure>
+<h3 id="手动解封"><a href="#手动解封" class="headerlink" title="手动解封"></a>手动解封</h3><p>解封单独IP</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fail2ban</span>-client unban <span class="hljs-number">192.168.1.16</span><br></code></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams">fail2ban-client <span class="hljs-keyword">set</span> sshd <span class="hljs-comment">unbanip 192.168.1.16</span><br></code></pre></td></tr></table></figure>
+<p>解封所有</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">fail2ban-client unban <span class="hljs-comment">--all</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="考虑增强-SSH-安全（长期建议）"><a href="#考虑增强-SSH-安全（长期建议）" class="headerlink" title="考虑增强 SSH 安全（长期建议）"></a>考虑增强 SSH 安全（长期建议）</h3><ul>
+<li>禁用密码登录，仅允许 SSH 密钥认证<br>（编辑 /etc/ssh/sshd_config → PasswordAuthentication no）</li>
+<li>更改 SSH 默认端口（减少自动化扫描）</li>
+<li>使用非 root 用户登录 + sudo</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">技术文档</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章仅供学习和交流所用，未经作者允许，均禁止转载！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/13/Screen%E7%BB%88%E7%AB%AF%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Screen终端多路复用工具</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/08/Conda%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                        <span class="hidden-mobile">Conda环境管理工具</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script> <script>LA.init({id: "JR5MduEn518Vyd4G",ck: "JR5MduEn518Vyd4G"})</script>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Copyright © 2017 - 2026  <a href="https://chziyue.github.io/" target="_blank"><span>MIDNIGHT</span></a> All Rights Reserved. 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

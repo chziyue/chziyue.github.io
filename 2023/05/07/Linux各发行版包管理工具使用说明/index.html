@@ -631,6 +631,32 @@
             </div>
 
             
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"spr42ebQeBnCHn4MLIoM4OpK-gzGzoHsz","appKey":"4MMsrYC38yldjvCfDYwFIsqc","placeholder":"评论支持 Markdown 语法","path":"window.location.pathname","avatar":"wavatar","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":["nick","mail"]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
           </article>
         </div>
       </div>
@@ -693,7 +719,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Copyright © 2017 - 2026  <a href="https://chziyue.github.io/" target="_blank"><span>MIDNIGHT</span></a> All Rights Reserved. 
+     Copyright © 2017 - 2023  <a href="https://chziyue.github.io/" target="_blank"><span>MIDNIGHT</span></a> All Rights Reserved. 
   </div>
   
 
