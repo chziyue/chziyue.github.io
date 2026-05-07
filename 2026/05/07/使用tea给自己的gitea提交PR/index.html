@@ -16,11 +16,11 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="SSH 密钥连接是一种比密码更安全的登录方式。本文将详细介绍如何配置 SSH 密钥认证，实现无密码登录服务器。">
+  <meta name="description" content="使用 tea 命令行工具为自建 Gitea 仓库提交 Pull Request 的完整流程，涵盖令牌创建、登录配置和 PR 提交等步骤。">
   <meta name="author" content="Midnight">
   <meta name="keywords" content="">
   
-  <title>配置ssh使用密钥连接 - MIDNIGHT&#39;S BLOG</title>
+  <title>使用tea给自己的gitea提交PR - MIDNIGHT&#39;S BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="配置ssh使用密钥连接">
+            <span class="h2" id="subtitle" title="使用tea给自己的gitea提交PR">
               
             </span>
 
@@ -175,8 +175,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2026-02-19 14:16" pubdate>
-        2026年2月19日 下午
+      <time datetime="2026-05-07 21:07" pubdate>
+        2026年5月7日 晚上
       </time>
     </span>
   
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      684 字
+      392 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      4
        分钟
     </span>
   
@@ -235,94 +235,43 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">配置ssh使用密钥连接</h1>
+            <h1 style="display: none">使用tea给自己的gitea提交PR</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2026年2月19日 下午
+                  本文最后更新于：2026年5月7日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SSH 密钥连接是一种比密码更安全的登录方式。本文将详细介绍如何配置 SSH 密钥认证，实现无密码登录服务器。</p>
-<!-- more -->
-
-<h2 id="一、本地电脑上生成密钥"><a href="#一、本地电脑上生成密钥" class="headerlink" title="一、本地电脑上生成密钥"></a>一、本地电脑上生成密钥</h2><h3 id="1-1-生成-Ed25519-密钥对"><a href="#1-1-生成-Ed25519-密钥对" class="headerlink" title="1.1 生成 Ed25519 密钥对"></a>1.1 生成 Ed25519 密钥对</h3><p>Ed25519 是一种现代的加密算法，安全性高且性能好。在本地终端执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;your_email@example.com&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="1-2-密钥保存位置"><a href="#1-2-密钥保存位置" class="headerlink" title="1.2 密钥保存位置"></a>1.2 密钥保存位置</h3><p>默认保存到 <code>~/.ssh/</code> 目录：</p>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>id_ed25519.pub</code></td>
-<td>公钥（可以公开）</td>
-</tr>
-<tr>
-<td><code>id_ed25519</code></td>
-<td>私钥（必须保密）</td>
-</tr>
-</tbody></table>
-<h3 id="1-3-配置公钥到服务器"><a href="#1-3-配置公钥到服务器" class="headerlink" title="1.3 配置公钥到服务器"></a>1.3 配置公钥到服务器</h3><p>将公钥内容写入服务器的 <code>authorized_keys</code> 文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一：使用 ssh-copy-id 命令</span><br>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server_ip<br><br><span class="hljs-comment"># 方法二：手动复制</span><br>cat ~/.ssh/id_ed25519.pub | ssh user@server_ip <span class="hljs-string">&quot;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="1-4-保护私钥"><a href="#1-4-保护私钥" class="headerlink" title="1.4 保护私钥"></a>1.4 保护私钥</h3><p>私钥文件 <code>id_ed25519</code> 必须保存在本地，切勿上传到任何服务器或分享给他人。</p>
-<p>建议设置权限：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">chmod 600 ~/.ssh/id_ed25519<br>chmod 644 ~/.ssh/id_ed25519.pub<br></code></pre></td></tr></table></figure>
-
-<h2 id="二、服务器-SSH-配置"><a href="#二、服务器-SSH-配置" class="headerlink" title="二、服务器 SSH 配置"></a>二、服务器 SSH 配置</h2><h3 id="2-1-备份配置文件"><a href="#2-1-备份配置文件" class="headerlink" title="2.1 备份配置文件"></a>2.1 备份配置文件</h3><p>在进行任何修改之前，先备份原始配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak.$(date +%Y%m%d)<br></code></pre></td></tr></table></figure>
-
-<h3 id="2-2-修改配置文件"><a href="#2-2-修改配置文件" class="headerlink" title="2.2 修改配置文件"></a>2.2 修改配置文件</h3><p>编辑 SSH 配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nano /etc/ssh/sshd_config<br></code></pre></td></tr></table></figure>
-
-<p>确保以下配置启用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ssh"># 允许公钥认证<br>PubkeyAuthentication yes<br></code></pre></td></tr></table></figure>
-
-<h3 id="2-3-检查配置语法"><a href="#2-3-检查配置语法" class="headerlink" title="2.3 检查配置语法"></a>2.3 检查配置语法</h3><p>修改后检查配置是否有语法错误：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sshd -t<br></code></pre></td></tr></table></figure>
-
-<p>如果没有输出，说明配置正确。</p>
-<h3 id="2-4-重启-SSH-服务"><a href="#2-4-重启-SSH-服务" class="headerlink" title="2.4 重启 SSH 服务"></a>2.4 重启 SSH 服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl restart sshd<br></code></pre></td></tr></table></figure>
-
-<h2 id="三、测试密钥登录"><a href="#三、测试密钥登录" class="headerlink" title="三、测试密钥登录"></a>三、测试密钥登录</h2><p>使用密钥登录测试：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -i ~/.ssh/id_ed25519 user@server_ip<br></code></pre></td></tr></table></figure>
-
-<p>如果成功登录，说明密钥配置正确。</p>
-<h2 id="四、禁用密码认证（增强安全性）"><a href="#四、禁用密码认证（增强安全性）" class="headerlink" title="四、禁用密码认证（增强安全性）"></a>四、禁用密码认证（增强安全性）</h2><p><strong>重要：务必先确认密钥登录成功，再禁用密码认证！</strong></p>
-<p>编辑配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nano /etc/ssh/sshd_config<br></code></pre></td></tr></table></figure>
-
-<p>添加或修改以下配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ssh"># 禁用密码认证<br>PasswordAuthentication no<br><br># 禁用键盘交互式认证（通常与密码相关）<br>ChallengeResponseAuthentication no<br><br># 禁用空密码登录<br>PermitEmptyPasswords no<br><br># 仅允许密钥登录（禁止 root 用户密码登录）<br>PermitRootLogin prohibit-password<br></code></pre></td></tr></table></figure>
-
-<p>检查配置并重启：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sshd -t<br>sudo systemctl restart sshd<br></code></pre></td></tr></table></figure>
-
-<h2 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a>五、常见问题</h2><h3 id="5-1-密钥登录失败"><a href="#5-1-密钥登录失败" class="headerlink" title="5.1 密钥登录失败"></a>5.1 密钥登录失败</h3><ol>
-<li>检查公钥是否正确写入 <code>~/.ssh/authorized_keys</code></li>
-<li>检查文件权限：<code>~/.ssh/</code> 应为 700，<code>authorized_keys</code> 应为 600</li>
-<li>检查 SSH 服务日志：<code>sudo journalctl -u sshd</code></li>
-</ol>
-<h3 id="5-2-权限问题"><a href="#5-2-权限问题" class="headerlink" title="5.2 权限问题"></a>5.2 权限问题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修正权限</span><br>chmod 700 ~/.ssh<br>chmod 600 ~/.ssh/authorized_keys<br>chmod 600 ~/.ssh/id_ed25519<br>chmod 644 ~/.ssh/id_ed25519.pub<br></code></pre></td></tr></table></figure>
-
-<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>使用 SSH 密钥连接的优势：</p>
-<ul>
-<li>更高的安全性（防止暴力破解）</li>
-<li>便捷的无密码登录</li>
-<li>便于自动化脚本执行</li>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在自建 Gitea 仓库中进行代码协作时，通过命令行工具提交 Pull Request 可以大大提高工作效率。tea 是 Gitea 官方推荐的命令行客户端，支持丰富的操作功能。本文详细介绍如何使用 tea 工具向自己的 Gitea 仓库提交 PR，无论是配置登录信息还是执行具体的提交流程，都能帮助你快速上手。</p>
+<h3 id="创建令牌"><a href="#创建令牌" class="headerlink" title="创建令牌"></a>创建令牌</h3><h4 id="1-打开内网-Gitea-→-头像-→-设置-→-应用"><a href="#1-打开内网-Gitea-→-头像-→-设置-→-应用" class="headerlink" title="1.打开内网 Gitea → 头像 → 设置 → 应用"></a>1.打开内网 Gitea → 头像 → 设置 → 应用</h4><h4 id="2-新建令牌，勾选这-3-个权限（其他全不勾）："><a href="#2-新建令牌，勾选这-3-个权限（其他全不勾）：" class="headerlink" title="2.新建令牌，勾选这 3 个权限（其他全不勾）："></a>2.新建令牌，勾选这 3 个权限（其他全不勾）：</h4><ul>
+<li>issue → 可读</li>
+<li>repository → 读写</li>
+<li>user → 可读</li>
 </ul>
-<p>建议：</p>
-<ul>
-<li>使用 Ed25519 算法</li>
-<li>私钥必须保密</li>
-<li>先测试成功再禁用密码认证</li>
-<li>定期更换密钥</li>
+<hr>
+<h3 id="第一部分：TEA-初始化配置（仅第一次配置）"><a href="#第一部分：TEA-初始化配置（仅第一次配置）" class="headerlink" title="第一部分：TEA 初始化配置（仅第一次配置）"></a>第一部分：TEA 初始化配置（仅第一次配置）</h3><h4 id="1-删除旧的登录配置（清空残留信息）"><a href="#1-删除旧的登录配置（清空残留信息）" class="headerlink" title="1. 删除旧的登录配置（清空残留信息）"></a>1. 删除旧的登录配置（清空残留信息）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tea login delete internal<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-绑定内网-Gitea-账号（替换成你的令牌）"><a href="#2-绑定内网-Gitea-账号（替换成你的令牌）" class="headerlink" title="2. 绑定内网 Gitea 账号（替换成你的令牌）"></a>2. 绑定内网 Gitea 账号（<strong>替换成你的令牌</strong>）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tea login add --name internal --url http://192.168.5.253:3000 --token 你的Gitea令牌<br></code></pre></td></tr></table></figure>
+
+<p>✅ 出现 <code>Login as chziyue successful</code> 代表配置完成</p>
+<hr>
+<h3 id="第二部分：每次提交-PR-固定无脑流程（永久通用）"><a href="#第二部分：每次提交-PR-固定无脑流程（永久通用）" class="headerlink" title="第二部分：每次提交 PR 固定无脑流程（永久通用）"></a>第二部分：每次提交 PR 固定无脑流程（永久通用）</h3><p><strong>前提：代码已写完，执行过 <code>git add .</code> + <code>git commit -m &quot;备注&quot;</code></strong></p>
+<h4 id="1-创建新分支（禁止用-main-分支提-PR）"><a href="#1-创建新分支（禁止用-main-分支提-PR）" class="headerlink" title="1. 创建新分支（禁止用 main 分支提 PR）"></a>1. 创建新分支（<strong>禁止用 main 分支提 PR</strong>）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -b <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-推送分支到远程-Gitea"><a href="#2-推送分支到远程-Gitea" class="headerlink" title="2. 推送分支到远程 Gitea"></a>2. 推送分支到远程 Gitea</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-一键创建-PR（最终成功命令）"><a href="#3-一键创建-PR（最终成功命令）" class="headerlink" title="3. 一键创建 PR（最终成功命令）"></a>3. 一键创建 PR（最终成功命令）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tea pr create --head <span class="hljs-built_in">test</span> --base main --title <span class="hljs-string">&quot;PR测试&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="第三部分：参数说明"><a href="#第三部分：参数说明" class="headerlink" title="第三部分：参数说明"></a>第三部分：参数说明</h3><ul>
+<li><code>--head test</code>：当前的开发分支</li>
+<li><code>--base main</code>：要合并的目标分支（主分支）</li>
+<li><code>--title &quot;PR测试&quot;</code>：PR 的标题（可自定义）</li>
 </ul>
+<hr>
+<h3 id="成功标志"><a href="#成功标志" class="headerlink" title="成功标志"></a>成功标志</h3><p>终端直接输出 PR 编号 + 链接，代表提交完成！</p>
 
             </div>
             <hr>
@@ -340,7 +289,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/tags/Gitea/">Gitea</a>
+                    
+                      <a class="hover-with-bg" href="/tags/tea/">tea</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PR/">PR</a>
                     
                   </div>
                 
@@ -357,18 +310,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/05/07/%E4%BD%BF%E7%94%A8tea%E7%BB%99%E8%87%AA%E5%B7%B1%E7%9A%84gitea%E6%8F%90%E4%BA%A4PR/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用tea给自己的gitea提交PR</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/10/Pacman%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
-                        <span class="hidden-mobile">Pacman包管理工具</span>
+                      <a href="/2026/02/19/%E9%85%8D%E7%BD%AEssh%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E8%BF%9E%E6%8E%A5/">
+                        <span class="hidden-mobile">配置ssh使用密钥连接</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
