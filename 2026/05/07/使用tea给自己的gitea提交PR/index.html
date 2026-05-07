@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      392 字
+      372 字
     </span>
   
 
@@ -257,16 +257,16 @@
 
 <p>✅ 出现 <code>Login as chziyue successful</code> 代表配置完成</p>
 <hr>
-<h3 id="第二部分：每次提交-PR-固定无脑流程（永久通用）"><a href="#第二部分：每次提交-PR-固定无脑流程（永久通用）" class="headerlink" title="第二部分：每次提交 PR 固定无脑流程（永久通用）"></a>第二部分：每次提交 PR 固定无脑流程（永久通用）</h3><p><strong>前提：代码已写完，执行过 <code>git add .</code> + <code>git commit -m &quot;备注&quot;</code></strong></p>
+<h3 id="第二部分：提交-PR"><a href="#第二部分：提交-PR" class="headerlink" title="第二部分：提交 PR"></a>第二部分：提交 PR</h3><p><strong>前提：代码已写完，执行过 <code>git add .</code> + <code>git commit -m &quot;备注&quot;</code></strong></p>
 <h4 id="1-创建新分支（禁止用-main-分支提-PR）"><a href="#1-创建新分支（禁止用-main-分支提-PR）" class="headerlink" title="1. 创建新分支（禁止用 main 分支提 PR）"></a>1. 创建新分支（<strong>禁止用 main 分支提 PR</strong>）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -b <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="2-推送分支到远程-Gitea"><a href="#2-推送分支到远程-Gitea" class="headerlink" title="2. 推送分支到远程 Gitea"></a>2. 推送分支到远程 Gitea</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
+<h4 id="2-推送分支到远程仓库"><a href="#2-推送分支到远程仓库" class="headerlink" title="2. 推送分支到远程仓库"></a>2. 推送分支到远程仓库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="3-一键创建-PR（最终成功命令）"><a href="#3-一键创建-PR（最终成功命令）" class="headerlink" title="3. 一键创建 PR（最终成功命令）"></a>3. 一键创建 PR（最终成功命令）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tea pr create --head <span class="hljs-built_in">test</span> --base main --title <span class="hljs-string">&quot;PR测试&quot;</span><br></code></pre></td></tr></table></figure>
+<h4 id="3-创建-PR"><a href="#3-创建-PR" class="headerlink" title="3. 创建 PR"></a>3. 创建 PR</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tea pr create --head <span class="hljs-built_in">test</span> --base main --title <span class="hljs-string">&quot;PR测试&quot;</span><br></code></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="第三部分：参数说明"><a href="#第三部分：参数说明" class="headerlink" title="第三部分：参数说明"></a>第三部分：参数说明</h3><ul>
-<li><code>--head test</code>：当前的开发分支</li>
+<li><code>--head test</code>：当前的 PR 分支</li>
 <li><code>--base main</code>：要合并的目标分支（主分支）</li>
 <li><code>--title &quot;PR测试&quot;</code>：PR 的标题（可自定义）</li>
 </ul>
